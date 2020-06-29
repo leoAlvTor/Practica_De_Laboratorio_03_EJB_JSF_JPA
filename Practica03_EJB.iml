@@ -42,5 +42,6 @@
     <orderEntry type="library" name="Mojarra-2.3.8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 5.0.1 - CDI: Contexts and Dependency Injection" level="application_server_libraries" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 5.0.1 - EJB" level="application_server_libraries" />
+    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
   </component>
 </module>
