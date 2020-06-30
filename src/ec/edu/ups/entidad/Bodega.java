@@ -21,8 +21,7 @@ public class Bodega implements Serializable {
 
     public Bodega(){}
 
-    public Bodega(int codigo, String nombre, Ciudad ciudad, List<Producto> productosList) {
-        this.codigo = codigo;
+    public Bodega(String nombre, Ciudad ciudad, List<Producto> productosList) {
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.productosList = productosList;

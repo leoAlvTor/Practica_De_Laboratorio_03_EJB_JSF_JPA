@@ -3,8 +3,11 @@
 
     <persistence-unit name="Practica03.EJB.JSF.JPA" transaction-type="JTA">
         <jta-data-source>jdbc/_practica</jta-data-source>
+
+
         <class>ec.edu.ups.entidad.Rol</class>
         <class>ec.edu.ups.entidad.Usuario</class>
+        <class>ec.edu.ups.entidad.Pais</class>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
         </properties>

@@ -1,48 +1,54 @@
 package ec.edu.ups.controlador;
 
 
+import ec.edu.ups.ejb.*;
+import ec.edu.ups.entidad.*;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.FacesConfig;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named
 @SessionScoped
 public class CatalogoBean implements Serializable{
-
     private static final long serialVersionUID = 1L;
 
-    private String producto;
-    private List<String> stringas;
-    private List<String> filtrado;
+    @EJB
+    private ProductoFacade productoFacade;
+
+    @EJB
+    private BodegaFacade bodegaFacade;
+
+    private Map<String, String> producto;
+    private List<Producto> productosList;
+    private List<Producto> filtrado;
+    // Mapa Codigo <-> Nombre
+    private Map<String, String> mapaCodigoNombreProducto;
+
+    @PostConstruct
+    public void init(){
+        productosList = productoFacade.findAll();
+        mapaCodigoNombreProducto = new TreeMap<>();
+        producto = new TreeMap<>();
+    }
 
     public CatalogoBean(){
-        producto = "";
-        stringas = new ArrayList<>();
         filtrado = new ArrayList<>();
-
-        stringas.add("Leo");
-        stringas.add("Leonardo");
-        stringas.add("Leito");
-        stringas.add("Isra");
-        stringas.add("Israel");
-        stringas.add("Israel Chuchuca");
-        stringas.add("Jonnathan");
-        stringas.add("Jonnathan Sicha");
-        stringas.add("Pedro");
-        stringas.add("Pedro Illaisaca");
-
     }
 
     public void llamar(AjaxBehaviorEvent event){
         producto = buscarProducto((String) ((UIOutput) event.getSource()).getValue());
     }
 
-    public String getText() {
+    public Map<String, String> getProductos() {
         return producto;
     }
 
@@ -50,19 +56,19 @@ public class CatalogoBean implements Serializable{
         return new String[]{"Leo", "Alvarado"};
     }
 
-    public void setFiltrado(List<String> filtrado) {
+    public void setFiltrado(List<Producto> filtrado) {
         this.filtrado = filtrado;
     }
 
-    private String buscarProducto(String producto){
-        filtrado = stringas.stream().filter(value -> value.toUpperCase().contains(producto.toUpperCase())).collect(Collectors.toList());
+    private Map<String, String> buscarProducto(String productoNombre){
+        mapaCodigoNombreProducto = new TreeMap<>();
+        filtrado = productosList.stream().filter(value -> value.getNombre().toUpperCase().contains(productoNombre.toUpperCase())).collect(Collectors.toList());
+        filtrado.forEach(e ->{mapaCodigoNombreProducto.put(String.valueOf(e.getCodigo()), e.getNombre()); });
 
-        if(filtrado.isEmpty())
-            return "No se ha encontrado ningun coincidencia";
-        return filtrado.toString();
+        if(mapaCodigoNombreProducto.isEmpty())
+            return new TreeMap<>();
+        else
+            return mapaCodigoNombreProducto;
     }
 
-    public void setText(String producto) {
-        this.producto = producto;
-    }
 }
