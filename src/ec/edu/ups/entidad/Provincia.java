@@ -21,11 +21,12 @@ public class Provincia implements Serializable {
 
     public Provincia(){}
 
-    public Provincia(String codigo, String nombre, Pais pais, List<Ciudad> listaCiudades) {
-        this.codigo = codigo;
+    public Provincia(String codigo,String nombre,Pais pais) {
+
         this.nombre = nombre;
+        this.codigo = codigo;
         this.pais = pais;
-        this.listaCiudades = listaCiudades;
+        /*this.listaCiudades = listaCiudades;*/
     }
 
     public String getCodigo() {
@@ -59,6 +60,8 @@ public class Provincia implements Serializable {
     public void setListaCiudades(List<Ciudad> listaCiudades) {
         this.listaCiudades = listaCiudades;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

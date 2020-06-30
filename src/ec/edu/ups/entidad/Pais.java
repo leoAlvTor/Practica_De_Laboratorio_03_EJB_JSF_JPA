@@ -15,10 +15,10 @@ public class Pais implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
     private List<Provincia> listaProvincias;
 
-    public Pais(){}
 
-    public Pais(String codigo, String nombre) {
-        this.codigo = codigo;
+
+    public Pais(String codigo,String nombre) {
+        this.codigo=codigo;
         this.nombre = nombre;
     }
 

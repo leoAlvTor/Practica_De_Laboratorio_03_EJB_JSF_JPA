@@ -12,7 +12,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@FacesConfig
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named
 @SessionScoped
 public class BodegaBean implements Serializable {
@@ -34,13 +34,9 @@ public class BodegaBean implements Serializable {
 
     }
 
-
-
     public Bodega[] getBodegas() {
         return bodegas.toArray(new Bodega[0]);
     }
-
-
 
     public void setBodegas(List<Bodega> bodegas) {
         this.bodegas = bodegas;
@@ -77,6 +73,8 @@ public class BodegaBean implements Serializable {
         b.setEditable(false);
         return null;
     }
+
+
 
 
 
