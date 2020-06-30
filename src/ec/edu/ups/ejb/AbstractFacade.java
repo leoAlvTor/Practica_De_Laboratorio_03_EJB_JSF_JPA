@@ -15,6 +15,7 @@ public abstract class AbstractFacade<T>{
 
     protected abstract EntityManager getEntityManager();
 
+
     public boolean create(T entity) {
         try {
             getEntityManager().persist(entity);
@@ -61,5 +62,7 @@ public abstract class AbstractFacade<T>{
         Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
+
+
 
 }

@@ -5,7 +5,112 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+
+<h:head>
+    <title>Categorías</title>
+    <style>
+        .tabla {
+            border-collapse: collapse;
+        }
+
+        .cabeceraTabla {
+            text-align: center;
+            background: none repeat scroll 0 0 #E5E5E5;
+            border-bottom: 1px solid #BBBBBB;
+            padding: 8px;
+        }
+
+        .filaPar {
+            text-align: center;
+            background: none repeat scroll 0 0 #FFFFFFF;
+            border-top: 1px solid #BBBBBB;
+        }
+
+        .filaImpar {
+            text-align: center;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-top: 1px solid #BBBBBB;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function indicador(data) {
+            if (data.status == "begin")
+                document.getElementById("id5").style.display = "inline";
+            else if (data.status == "success")
+                document.getElementById("id5").style.display = "none";
+        }
+    </script>
+
+</h:head>
+
+
+
+<h:body>
+    <h3>Gestión de bodegas</h3>
+    <h:form>
+
+        <fieldset>
+
+            <ul>
+                <li>Nombre Bodega:<h:inputText size="10" value="#{bodegaBean.nombre}"/></li>
+            </ul>
+
+            <h:commandButton value="Add" action="#{bodegaBean.add}" />
+
+            <legend>Elija su pais</legend>
+            Pais:
+            <h:selectOneMenu value="#{ajaxUbiGeo.level1}">
+                <f:selectItems value="#{ajaxUbiGeo.level1List}" />
+                <f:ajax render="idList2 idList3 id4" onevent="indicador" />
+            </h:selectOneMenu>
+            <br />Provincia:
+            <h:selectOneMenu value="#{ajaxUbiGeo.level2}" id="idList2"
+                             disabled="#{ajaxUbiGeo.level2ListDisabled}">
+                <f:selectItems value="#{ajaxUbiGeo.level2List}" />
+                <f:ajax render="idList3 id4" onevent="indicador" />
+            </h:selectOneMenu>
+            <br />Canton:
+            <h:selectOneMenu value="#{ajaxUbiGeo.level3}" id="idList3"
+                             disabled="#{ajaxUbiGeo.level3ListDisabled}">
+                <f:selectItems value="#{ajaxUbiGeo.level3List}" />
+                <f:ajax render="id4" onevent="indicador" />
+            </h:selectOneMenu>
+            <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
+            <h:outputText value="#{ajaxUbiGeo.level3}" id="id4" />
+        </fieldset>
+
+
+        <h:dataTable value="#{bodegaBean.bodegas}" var="b" styleClass="tabla"
+                     headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>#{b.codigo}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Nombre</f:facet>
+                <h:inputText value="#{b.nombre}" size="10" rendered="#{b.editable}" />
+                <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Accion</f:facet>
+                <h:commandLink value="Delete" action="#{bodegaBean.delete(b)}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Accion</f:facet>
+                <h:commandLink value="Edit" action="#{bodegaBean.edit(b)}" rendered="#{not b.editable}" />
+                <h:commandLink value="Save" action="#{bodegaBean.save(b)}" rendered="#{b.editable}" />
+            </h:column>
+        </h:dataTable>
+
+
+
+    </h:form>
+</h:body>
+
+
+
+
+
 </html>

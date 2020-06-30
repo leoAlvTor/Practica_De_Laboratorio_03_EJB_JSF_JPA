@@ -20,4 +20,7 @@ public class PaisFacade extends AbstractFacade<Pais> {
     protected  EntityManager getEntityManager(){
         return entityManager;
     }
+
+
+
 }

@@ -13,6 +13,7 @@ public class Provincia implements Serializable {
     private String nombre;
 
     @ManyToOne
+    @JoinColumn
     private Pais pais;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provincia")

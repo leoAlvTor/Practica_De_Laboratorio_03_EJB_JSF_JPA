@@ -22,4 +22,8 @@ public class BodegaFacade extends AbstractFacade<Bodega>{
         return entityManager;
     }
 
+
+
+
+
 }

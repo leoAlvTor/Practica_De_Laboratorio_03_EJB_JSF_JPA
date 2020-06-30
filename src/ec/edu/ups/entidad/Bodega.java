@@ -18,14 +18,20 @@ public class Bodega implements Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "bodegasList")
     private List<Producto> productosList;
+    @Transient
+    private boolean editable;
+
+
 
     public Bodega(){}
 
-    public Bodega(int codigo, String nombre, Ciudad ciudad, List<Producto> productosList) {
-        this.codigo = codigo;
+    public Bodega( String nombre) {
         this.nombre = nombre;
+
+        /*
+        this.codigo = codigo;
         this.ciudad = ciudad;
-        this.productosList = productosList;
+        this.productosList = productosList;*/
     }
 
     public int getCodigo() {
@@ -62,6 +68,16 @@ public class Bodega implements Serializable {
 
     public boolean agregarProducto(Producto producto){
         return this.productosList.add(producto);
+    }
+
+
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override
