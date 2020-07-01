@@ -51,6 +51,7 @@
     <h:form>
 
         <fieldset>
+            <legend>Elija su pais</legend>
 
             <ul>
                 <li>Nombre Bodega:<h:inputText size="10" value="#{bodegaBean.nombre}"/></li>
@@ -58,7 +59,7 @@
 
             <h:commandButton value="Add" action="#{bodegaBean.add}" />
 
-            <legend>Elija su pais</legend>
+
             Pais:
             <h:selectOneMenu value="#{ajaxUbiGeo.level1}">
                 <f:selectItems value="#{ajaxUbiGeo.level1List}" />
@@ -76,8 +77,11 @@
                 <f:selectItems value="#{ajaxUbiGeo.level3List}" />
                 <f:ajax render="id4" onevent="indicador" />
             </h:selectOneMenu>
+
+
             <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
             <h:outputText value="#{ajaxUbiGeo.level3}" id="id4" />
+
         </fieldset>
 
 

@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +22,9 @@ public class BodegaBean implements Serializable {
     private BodegaFacade ejbBodegaFacade;
     private List<Bodega> bodegas;
     private String nombre;
+    @Inject
+    private AjaxUbiGeo ajaxUbiGeo;
+
 
 
 
@@ -52,7 +56,12 @@ public class BodegaBean implements Serializable {
 
 
     public String add (){
-        ejbBodegaFacade.create(new Bodega(this.nombre));
+
+        //ejbBodegaFacade.create(new Bodega(this.nombre));
+
+        System.out.println("**********"+ajaxUbiGeo.getLevel3List()+"**********");
+
+
 
         return  null;
     }
