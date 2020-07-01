@@ -57,7 +57,7 @@ public class BodegaBean implements Serializable {
 
     public String add (){
 
-        //ejbBodegaFacade.create(new Bodega(this.nombre));
+        ejbBodegaFacade.create(new Bodega(this.nombre));
 
         System.out.println("**********"+ajaxUbiGeo.getLevel3List()+"**********");
 
