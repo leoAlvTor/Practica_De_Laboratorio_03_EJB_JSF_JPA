@@ -23,6 +23,10 @@ public class CatalogoBean implements Serializable{
 
     @EJB
     private ProductoFacade productoFacade;
+    @EJB
+    private CategoriaFacade categoriaFacade;
+    @EJB
+    private BodegaFacade bodegaFacade;
 
     private Map<String, String> mapaCodigoNombreProductos;
     private List<Producto> productosList;
@@ -32,7 +36,11 @@ public class CatalogoBean implements Serializable{
     // Mapa Codigo <-> Producto
     private Map<Integer, Producto> mapaCodigoProducto;
     private Producto producto;
-    private boolean render;
+
+    // Variable para la categoria seleccionada.
+    private String categoriaSeleccionada;
+    // Variable para la bodega seleccionada.
+    private String bodegaSeleccionada;
 
     @PostConstruct
     public void init(){
@@ -40,10 +48,10 @@ public class CatalogoBean implements Serializable{
         mapaCodigoProducto = new HashMap<>();
         productosList = productoFacade.findAll();
         productosList.forEach(e->{mapaCodigoProducto.put(e.getCodigo(), e);});
-
         mapaCodigoNombreProducto = new TreeMap<>();
         mapaCodigoNombreProductos = null;
         producto = new Producto();
+
     }
 
     public Producto getProducto(){return this.producto; }
@@ -55,8 +63,6 @@ public class CatalogoBean implements Serializable{
 
     public void filtrarProductos(AjaxBehaviorEvent event){
         mapaCodigoNombreProductos = buscarProducto((String) ((UIOutput) event.getSource()).getValue());
-        System.out.println(mapaCodigoNombreProductos.isEmpty());
-
     }
 
     public void abrirProducto(String param){
@@ -64,39 +70,46 @@ public class CatalogoBean implements Serializable{
         System.out.println(producto);
     }
 
+    public List<String> getCategorias(){
+        return categoriaFacade.findAll().parallelStream().map(Categoria::getNombre).collect(Collectors.toList());
+    }
+
+    public List<String> getBodegas(){
+        return bodegaFacade.findAll().parallelStream().map(Bodega::getNombre).collect(Collectors.toList());
+    }
+
     public Map<String, String> getProductos() {
-        System.out.println("<-------------->");
-        System.out.println(mapaCodigoNombreProductos != null);
         return mapaCodigoNombreProductos;
     }
 
-    public String[] getFiltrado() {
-        return new String[]{"Leo", "Alvarado"};
+    public void cargarProductosPorCategoria(){
+        mapaCodigoNombreProductos = productoFacade.getProductosPorCategoria(categoriaFacade.getCategoryByName(categoriaSeleccionada));
     }
 
-    public void setFiltrado(List<Producto> filtrado) {
-        this.filtrado = filtrado;
+    public String getCategoriaSeleccionada(){
+        return this.categoriaSeleccionada;
+    }
+
+    public void setCategoriaSeleccionada(String categoriaSeleccionada){
+        this.categoriaSeleccionada = categoriaSeleccionada;
+    }
+
+    public void cargarProductosPorBodega(){
+        System.out.println(bodegaSeleccionada);
+    }
+
+    public void setBodegaSeleccionada(String bodegaSeleccionada){
+        this.bodegaSeleccionada = bodegaSeleccionada;
+    }
+
+    public String getBodegaSeleccionada(){
+        return this.bodegaSeleccionada;
     }
 
     private Map<String, String> buscarProducto(String productoNombre){
         mapaCodigoNombreProducto = new TreeMap<>();
         filtrado = productosList.stream().filter(value -> value.getNombre().toUpperCase().contains(productoNombre.toUpperCase())).collect(Collectors.toList());
         filtrado.forEach(e ->{mapaCodigoNombreProducto.put(String.valueOf(e.getCodigo()), e.getNombre()); });
-
-        if(mapaCodigoNombreProducto.isEmpty()) {
-            render=false;
-            return null;
-        }else
-            return mapaCodigoNombreProducto;
-    }
-
-    public void setRender(boolean render) {
-        this.render = render;
-    }
-
-    public boolean getRender(){
-        System.out.println(mapaCodigoNombreProducto);
-        render=  !mapaCodigoNombreProducto.isEmpty();
-        return render;
+        return mapaCodigoNombreProducto.isEmpty() ? new HashMap<>() : mapaCodigoNombreProducto;
     }
 }

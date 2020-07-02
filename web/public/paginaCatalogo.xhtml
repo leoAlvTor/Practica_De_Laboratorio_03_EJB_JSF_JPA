@@ -13,14 +13,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
 
 <script type="text/javascript">
-    function toggle(bandera) {
-        alert(bandera);
-        let element = document.getElementById('tabla');
-        if (element.style.display === 'block') {
-            element.style.display = 'none';
-        } else {
-            element.style.display = 'block';
-        }
+    function mostrarInformacion() {
+        let component = document.getElementById('mas_info');
+        component.style.display = 'block';
+    }
+
+    function ocultarInformacion() {
+        let component = document.getElementById('mas_info');
+        component.style.display = 'none';
     }
 </script>
 
@@ -28,16 +28,39 @@
     <title>Catalogo De Productos</title>
 </h:head>
 
-<h:body>
+<h:body style="margin-bottom: 5%; background-color: #204051;">
+
     <!-- BARRA DE NAVEGACION -->
     <h:panelGroup>
         <div class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" style="margin-right: 20px">Mi Empresa</a>
+            <a class="navbar-brand" style="margin-right: 20px">Microdev</a>
             <h:form style="margin-left: auto; width: 70%; max-width: 700px">
                 <h:inputText id="txtProducto" class="form-control mr-sm-2"
                              style="margin-left: auto; margin-right: 10px; max-width: 700px">
                     <f:ajax event="keyup" listener="#{catalogoBean.filtrarProductos}" render=":table_father"/>
                 </h:inputText>
+            </h:form>
+
+            <h:form>
+                <fieldset>
+                    <h:selectOneMenu styleClass="btn btn-secondary dropdown-toggle"
+                                     style="margin-left: 10px; margin-right: 10px"
+                                     value="#{catalogoBean.categoriaSeleccionada}">
+                        <f:selectItems value="#{catalogoBean.categorias}" pt:styleClass="dropdown-item"/>
+                        <f:ajax listener="#{catalogoBean.cargarProductosPorCategoria}" render=":table_father"/>
+                    </h:selectOneMenu>
+                </fieldset>
+            </h:form>
+
+            <h:form>
+                <fieldset>
+                    <h:selectOneMenu styleClass="btn btn-secondary dropdown-toggle"
+                                     style="margin-left: 10px; margin-right: 10px"
+                                        value="#{catalogoBean.bodegaSeleccionada}">
+                        <f:selectItems value="#{catalogoBean.bodegas}" pt:styleClass="dropdown-item"/>
+                        <f:ajax listener="#{catalogoBean.cargarProductosPorBodega}" render=":table_father"/>
+                    </h:selectOneMenu>
+                </fieldset>
             </h:form>
 
             <h:button styleClass="btn btn-primary" value="Iniciar Sesion" style="margin-left: auto; float: right"/>
@@ -49,7 +72,7 @@
             <h:dataTable id="tabla" value="#{catalogoBean.productos.entrySet().toArray()}" var="entry"
                          styleClass="table table-dark table-striped" style="width: 70%;
              margin-left: auto; margin-right: auto;"
-                         rendered="#{catalogoBean.productos != null}">
+                         rendered="#{not empty catalogoBean.productos}">
 
                 <h:column pt:style="text-align: center">
                     <f:facet name="header" pt:style="width: 150%">
@@ -73,20 +96,24 @@
                     <h:form>
                         <h:commandLink value="Abrir Producto" action="#{catalogoBean.abrirProducto(entry.key)}">
                             <f:ajax event="action"
-                                    render="codigo_producto nombre_producto imagen_producto precioVenta_producto stock_producto"/>
+                                    render="codigo_producto nombre_producto imagen_producto precioVenta_producto stock_producto"
+                                    onevent="mostrarInformacion()"/>
                         </h:commandLink>
                     </h:form>
 
                 </h:column>
             </h:dataTable>
         </h:panelGroup>
-        <div style="width: 70%; margin-left: auto; margin-right: auto;" class="container">
-            <h3 style="margin-top: 50px">Informacion del producto Seleccionado</h3><br/>
+
+        <div id="mas_info" style="width: 70%; margin-left: auto; margin-right: auto; display: none" class="container">
+            <h3 style="margin-top: 50px; width: 100%">Informacion del producto Seleccionado <h:commandButton
+                    styleClass="btn btn-danger" value="X" style="margin-left: 5%" onclick="ocultarInformacion()"/></h3>
+            <br/>
 
             <table class="table table-hover">
                 <tbody>
                 <tr>
-                    <td style="width: 40%"><strong>Codigo Del Producto:</strong></td>
+                    <td style="width: 40%; border-right: black solid 2px"><strong>Codigo Del Producto:</strong></td>
                     <td><h:outputText id="codigo_producto" value="#{catalogoBean.producto.codigo}"/></td>
                 </tr>
                 <tr>
@@ -94,7 +121,7 @@
                     <td><h:outputText id="nombre_producto" value="#{catalogoBean.producto.nombre}"/></td>
                 </tr>
                 <tr>
-                    <td><strong>Imagen Referencial:</strong></td>
+                    <td style="width: 40%; border-right: black solid 2px"><strong>Imagen Referencial:</strong></td>
                     <td><h:graphicImage id="imagen_producto" value="#{catalogoBean.producto.imagen}"
                                         style="height: 30%; width: 30%;"/></td>
                 </tr>
@@ -103,7 +130,7 @@
                     <td><h:outputText id="precioVenta_producto" value="#{catalogoBean.producto.precioVenta}"/></td>
                 </tr>
                 <tr>
-                    <td><strong>Stock:</strong></td>
+                    <td style="width: 40%; border-right: black solid 2px"><strong>Stock:</strong></td>
                     <td><h:outputText id="stock_producto" value="#{catalogoBean.producto.stock}"/></td>
                 </tr>
                 </tbody>
