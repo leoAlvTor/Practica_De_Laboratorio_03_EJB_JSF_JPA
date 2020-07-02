@@ -16,6 +16,9 @@ public class Pais implements Serializable {
     private List<Provincia> listaProvincias;
 
 
+    public Pais(){
+
+    }
 
     public Pais(String codigo,String nombre) {
         this.codigo=codigo;
