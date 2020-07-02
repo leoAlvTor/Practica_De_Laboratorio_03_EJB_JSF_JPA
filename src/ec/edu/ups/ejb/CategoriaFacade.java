@@ -1,7 +1,7 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Categoria;
-import ec.edu.ups.entidad.Producto;
+import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,6 +21,16 @@ public class CategoriaFacade extends AbstractFacade<Categoria>{
         super(Categoria.class);
     }
 
+    public Categoria buscarCategoriaPorNombre(String nombre){
+        System.out.println("llego a buscar  Categoria por nombre");
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Categoria> criteriaQuery= criteriaBuilder.createQuery(Categoria.class);
+        Root<Categoria> categoriaRoot= criteriaQuery.from(Categoria.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+        System.out.println("Salio de a buscar Categoria por nombre");
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
     @Override
     protected  EntityManager getEntityManager(){
         return entityManager;

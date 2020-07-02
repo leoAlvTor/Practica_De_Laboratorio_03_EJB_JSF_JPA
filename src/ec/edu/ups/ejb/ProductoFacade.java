@@ -1,16 +1,23 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Categoria;
+
+import com.sun.deploy.security.BadCertificateDialog;
+
+import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +33,27 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public ProductoFacade(){
         super(Producto.class);
+        this.entityManager = this.entityManager;
+    }
+
+    public Producto buscarProducto(String nombre){
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
+        Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
+        criteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    public Producto buscarPrductoPorNombre(String nombre){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override
@@ -77,20 +105,3 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

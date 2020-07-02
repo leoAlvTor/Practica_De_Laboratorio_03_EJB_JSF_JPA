@@ -2,6 +2,7 @@ package ec.edu.ups.entidad;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,8 @@ public class Producto implements Serializable {
     private char iva;
     private int stock;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinColumn
     private List<Bodega> bodegasList;
 
     @ManyToOne
@@ -27,10 +29,28 @@ public class Producto implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
     private List<FacturaDetalle> facturasDetallesList;
 
-    public Producto(){}
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    private List<Stock> lista_stock;
 
-    public Producto(int codigo, String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
-        this.codigo = codigo;
+    public Producto(){
+        bodegasList= new ArrayList<Bodega>();
+        facturasDetallesList= new ArrayList<FacturaDetalle>();
+        lista_stock= new ArrayList<Stock>();
+    }
+
+    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock,Categoria categoria) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.iva = iva;
+        this.stock = stock;
+        this.categoria = categoria;
+        bodegasList= new ArrayList<Bodega>();
+        lista_stock= new ArrayList<Stock>();
+    }
+
+    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precioCompra = precioCompra;
@@ -122,6 +142,21 @@ public class Producto implements Serializable {
         this.categoria = categoria;
     }
 
+    public List<Stock> getLista_stock() {
+        return lista_stock;
+    }
+
+    public void setLista_stock(List<Stock> lista_stock) {
+        this.lista_stock = lista_stock;
+    }
+
+    public void addBodega(Bodega bodega){
+        this.bodegasList.add(bodega);
+    }
+
+    public void addStock(Stock stock){
+        this.lista_stock.add(stock);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

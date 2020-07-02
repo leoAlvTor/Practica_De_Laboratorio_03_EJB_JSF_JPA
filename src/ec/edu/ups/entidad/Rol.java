@@ -1,13 +1,15 @@
 package ec.edu.ups.entidad;
 
+import javax.persistence.CascadeType;
 import javax.persistence.*;
-import java.io.Serializable;
+import ec.edu.ups.entidad.Usuario;
 import java.util.List;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Rol implements Serializable {
-
     @Id
     private String nombre;
     private String descripcion;
