@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Entity
 public class Categoria implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codigo;
@@ -19,8 +18,8 @@ public class Categoria implements Serializable {
 
     public Categoria(){}
 
-    public Categoria(int codigo, String nombre, String imagen, List<Producto> productosList) {
-        this.codigo = codigo;
+    public Categoria( String nombre, String imagen, List<Producto> productosList) {
+
         this.nombre = nombre;
         this.imagen = imagen;
         this.productosList = productosList;
@@ -84,4 +83,5 @@ public class Categoria implements Serializable {
                 ", productosList=" + productosList +
                 '}';
     }
+
 }
