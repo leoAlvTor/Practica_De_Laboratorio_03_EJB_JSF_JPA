@@ -6,6 +6,8 @@ import ec.edu.ups.entidad.Producto;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class BodegaFacade extends AbstractFacade<Bodega>{
@@ -21,5 +23,4 @@ public class BodegaFacade extends AbstractFacade<Bodega>{
     protected  EntityManager getEntityManager(){
         return entityManager;
     }
-
 }

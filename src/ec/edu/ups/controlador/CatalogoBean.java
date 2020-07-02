@@ -1,11 +1,13 @@
 package ec.edu.ups.controlador;
 
+// https://i.pinimg.com/originals/96/2f/f6/962ff6c2e535eebc9d762cf420b631c8.gif
 
 import ec.edu.ups.ejb.*;
 import ec.edu.ups.entidad.*;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -37,6 +39,8 @@ public class CatalogoBean implements Serializable{
     private Map<Integer, Producto> mapaCodigoProducto;
     private Producto producto;
 
+    // Lista de bodegas.
+    private List<Bodega> bodegaList;
     // Variable para la categoria seleccionada.
     private String categoriaSeleccionada;
     // Variable para la bodega seleccionada.
@@ -49,7 +53,7 @@ public class CatalogoBean implements Serializable{
         productosList = productoFacade.findAll();
         productosList.forEach(e->{mapaCodigoProducto.put(e.getCodigo(), e);});
         mapaCodigoNombreProducto = new TreeMap<>();
-        mapaCodigoNombreProductos = null;
+        mapaCodigoNombreProductos = new HashMap<>();
         producto = new Producto();
 
     }
@@ -75,7 +79,8 @@ public class CatalogoBean implements Serializable{
     }
 
     public List<String> getBodegas(){
-        return bodegaFacade.findAll().parallelStream().map(Bodega::getNombre).collect(Collectors.toList());
+        bodegaList = bodegaFacade.findAll();
+        return bodegaList.parallelStream().map(Bodega::getNombre).collect(Collectors.toList());
     }
 
     public Map<String, String> getProductos() {
@@ -95,7 +100,21 @@ public class CatalogoBean implements Serializable{
     }
 
     public void cargarProductosPorBodega(){
-        System.out.println(bodegaSeleccionada);
+        AtomicInteger atomicInteger= new AtomicInteger();
+        Optional<Bodega> bodega = bodegaList.stream().filter(e -> e.getNombre().equals(bodegaSeleccionada)).findFirst();
+        bodega.ifPresent(value -> {
+            atomicInteger.set(value.getCodigo());});
+        int codigoBodega = atomicInteger.get();
+        List<Integer> idProductos = productoFacade.getProductosPorBodega(codigoBodega);
+        if(!idProductos.isEmpty()){
+            idProductos.forEach(
+                    e->{
+                        producto = productoFacade.find(e);
+                        mapaCodigoNombreProductos.put(String.valueOf(producto.getCodigo()), producto.getNombre());
+                    }
+            );
+            System.out.println(mapaCodigoNombreProductos);
+        }
     }
 
     public void setBodegaSeleccionada(String bodegaSeleccionada){

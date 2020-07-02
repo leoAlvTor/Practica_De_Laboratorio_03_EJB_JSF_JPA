@@ -6,6 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "getProductosBodega",
+                query = "SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO = ?",
+                resultClass = String.class
+        )
+})
 public class Bodega implements Serializable {
 
     @Id

@@ -5,16 +5,17 @@ import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.OrderBy;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.lang.String.*;
 
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {
@@ -43,6 +44,32 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                  .parallelStream()
                  .collect(Collectors.toMap(Producto::getCodigo, Producto::getNombre)).entrySet()
                  .parallelStream()
-                 .collect(Collectors.toMap(entry -> String.valueOf(entry.getKey()), Map.Entry::getValue));
+                 .collect(Collectors.toMap(entry -> valueOf(entry.getKey()), Map.Entry::getValue));
+    }
+    private List<Integer> strings;
+    public List<Integer> getProductosPorBodega(int codigoBodega){
+        strings = new ArrayList<>();
+        Query query = entityManager.createNativeQuery("SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO =" + valueOf(codigoBodega));
+        query.getResultList().forEach(e-> {
+            strings.add(Integer.valueOf(valueOf(e)));
+        });
+        return strings;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
