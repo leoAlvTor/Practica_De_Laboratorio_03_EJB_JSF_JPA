@@ -96,8 +96,4 @@ public class Bodega implements Serializable {
     public int hashCode() {
         return Objects.hash(codigo);
     }
-
-
-
-
 }

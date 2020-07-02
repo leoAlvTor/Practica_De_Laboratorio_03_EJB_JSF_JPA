@@ -1,17 +1,29 @@
 package ec.edu.ups.ejb;
 
+import ec.edu.ups.entidad.Categoria;
+
 import com.sun.deploy.security.BadCertificateDialog;
+
 import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.lang.String.*;
 
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {
@@ -49,4 +61,47 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return entityManager;
     }
 
+    public Map<String, String> getProductosPorCategoria(Categoria categoria){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> productoCriteriaQuery = criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> productoRoot = productoCriteriaQuery.from(Producto.class);
+        productoCriteriaQuery.select(productoRoot)
+                .where(
+                        criteriaBuilder.equal(productoRoot.get("categoria"), categoria));
+
+         return entityManager.createQuery(productoCriteriaQuery).getResultList()
+                 .parallelStream()
+                 .collect(Collectors.toMap(Producto::getCodigo, Producto::getNombre)).entrySet()
+                 .parallelStream()
+                 .collect(Collectors.toMap(entry -> valueOf(entry.getKey()), Map.Entry::getValue));
+    }
+    private List<Integer> strings;
+    public List<Integer> getProductosPorBodega(int codigoBodega){
+        strings = new ArrayList<>();
+        Query query = entityManager.createNativeQuery("SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO =" + valueOf(codigoBodega));
+        query.getResultList().forEach(e-> {
+            strings.add(Integer.valueOf(valueOf(e)));
+        });
+        return strings;
+    }
+
+    public Producto buscarProducto(String nombre){
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
+        Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
+        criteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    public Producto buscarPrductoPorNombre(String nombre){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
 }
