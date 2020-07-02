@@ -21,22 +21,19 @@ public class RolBean implements Serializable {
     @EJB
     private RolFacade ejbRolFacade;
     private List<Rol> list;
-    private List<Usuario> usuarios;
+    private List<Usuario>usuarios;
 
-    public RolBean() {
-        usuarios = new ArrayList<Usuario>();
+    public RolBean(){
+        usuarios=new ArrayList<Usuario>();
     }
-
     @PostConstruct
-    public void init() {
-        ejbRolFacade.create(new Rol("Leo", "Rol para el admin", usuarios));
-        list = ejbRolFacade.findAll();
+    public void init(){
+        //ejbRolFacade.create(new Rol("Secretaria","Rol para la secretaria",usuarios));
+        list=ejbRolFacade.findAll();
     }
-
     public void setList(List<Rol> list) {
         this.list = list;
     }
-
     public Rol[] getList() {
         return list.toArray(new Rol[0]);
     }

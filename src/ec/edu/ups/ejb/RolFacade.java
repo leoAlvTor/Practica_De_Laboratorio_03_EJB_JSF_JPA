@@ -1,6 +1,5 @@
 package ec.edu.ups.ejb;
 
-import ec.edu.ups.entidad.Producto;
 import ec.edu.ups.entidad.Rol;
 
 import javax.ejb.Stateless;
@@ -12,12 +11,12 @@ public class RolFacade extends AbstractFacade<Rol> {
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
 
-    public RolFacade(){
+    public RolFacade() {
         super(Rol.class);
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
 }

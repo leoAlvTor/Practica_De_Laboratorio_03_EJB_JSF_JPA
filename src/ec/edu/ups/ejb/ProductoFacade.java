@@ -1,5 +1,7 @@
 package ec.edu.ups.ejb;
 
+import com.sun.deploy.security.BadCertificateDialog;
+import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
@@ -29,6 +31,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
         Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
         criteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    public Producto buscarPrductoPorNombre(String nombre){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
