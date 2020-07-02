@@ -6,6 +6,7 @@ import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,6 +21,17 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public ProductoFacade(){
         super(Producto.class);
+        this.entityManager = this.entityManager;
+    }
+
+    public Producto buscarProducto(String nombre){
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
+        Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
+        criteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
     public Producto buscarPrductoPorNombre(String nombre){

@@ -19,6 +19,8 @@ public class FacturaCabecera implements Serializable {
     private double subtotal;
     private double iva_total;
     private double total;
+    @Transient
+    private boolean editable;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaCabecera")
     private List<FacturaDetalle> listaFacturasDetalles;
@@ -28,7 +30,7 @@ public class FacturaCabecera implements Serializable {
 
     public FacturaCabecera(){}
 
-    public FacturaCabecera(int codigo, GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, List<FacturaDetalle> listaFacturasDetalles, Persona persona) {
+    public FacturaCabecera(GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, Persona persona) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.anulado = anulado;
@@ -94,6 +96,14 @@ public class FacturaCabecera implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public List<FacturaDetalle> getListaFacturasDetalles() {
