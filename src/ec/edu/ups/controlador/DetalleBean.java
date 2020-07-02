@@ -100,11 +100,6 @@ public class DetalleBean implements Serializable {
         return null;
     }
 
-    public String delete(Row t) {
-        this.list.remove(t);
-        return null;
-    }
-
     public String getBusqueda() {
         return busqueda;
     }
@@ -134,10 +129,6 @@ public class DetalleBean implements Serializable {
         return null;
     }
 
-    public String save(Row t) {
-        t.setEditable(false);
-        return null;
-    }
 
     public Row[] getList() {
         return list.toArray(new Row[0]);
