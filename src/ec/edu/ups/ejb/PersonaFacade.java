@@ -1,7 +1,6 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Persona;
-import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -1,13 +1,13 @@
 package ec.edu.ups.entidad;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-public class Usuario extends Persona implements Serializable {
-
+public class Usuario implements Serializable {
+    @Id
+    private int codigo;
     private String correo;
     private String password;
 
@@ -23,7 +23,7 @@ public class Usuario extends Persona implements Serializable {
     }
 
     public Usuario(String cedula, String nombre, String apellido, String direccion, String telefono, String correo, String password, Rol rol) {
-        super(cedula, nombre, apellido, direccion, telefono);
+        super();
         this.correo = correo;
         this.password = password;
         this.rol = rol;
@@ -54,11 +54,26 @@ public class Usuario extends Persona implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return codigo == usuario.codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
+    }
+
+    @Override
     public String toString() {
         return "Usuario{" +
-                "correo='" + correo + '\'' +
+                "codigo=" + codigo +
+                ", correo='" + correo + '\'' +
                 ", password='" + password + '\'' +
                 ", rol=" + rol +
                 '}';
     }
 }
+

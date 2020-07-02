@@ -1,10 +1,16 @@
 package ec.edu.ups.ejb;
 
+import com.sun.deploy.security.BadCertificateDialog;
+import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {
@@ -14,6 +20,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public ProductoFacade(){
         super(Producto.class);
+    }
+
+    public Producto buscarPrductoPorNombre(String nombre){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override

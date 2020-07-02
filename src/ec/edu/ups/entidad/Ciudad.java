@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Entity
 public class Ciudad implements Serializable {
-
     @Id
     private String codigo;
     private String nombre;
@@ -88,3 +87,6 @@ public class Ciudad implements Serializable {
         return this.listaBodeas.add(bodega);
     }
 }
+
+
+
