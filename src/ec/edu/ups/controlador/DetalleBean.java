@@ -337,6 +337,28 @@ public class DetalleBean implements Serializable {
 
         this.mensaje = "se ha creado exitosamente la factura";
     }
+    public String save(Row t) {
+        t.setEditable(false);
+        this.subtotalcabecera = 0.0;
+        for(Row p: list){
+            subtotalcabecera = subtotalcabecera + p.getSubtotal();
+        }
+        this.descuento = 0.00;
+        this.iva=subtotalcabecera * 0.12;
+        this.totalpagar=this.iva + subtotalcabecera;
+        return null;
+    }
+    public String delete(Row t) {
+        this.list.remove(t);
+        this.subtotalcabecera = 0.0;
+        for(Row p: list){
+            subtotalcabecera = subtotalcabecera + p.getSubtotal();
+        }
+        this.descuento = 0.00;
+        this.iva=subtotalcabecera * 0.12;
+        this.totalpagar=this.iva + subtotalcabecera;
+        return null;
+    }
 
 
 
