@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 @Stateless
@@ -33,6 +34,17 @@ public class CategoriaFacade extends AbstractFacade<Categoria>{
         categoriaCriteriaQuery = categoriaCriteriaQuery.select(categoriaRoot)
                 .where(criteriaBuilder.equal(categoriaRoot.get("nombre"), nombreCategoria));
         return entityManager.createQuery(categoriaCriteriaQuery).getSingleResult();
+    }
+
+    public Categoria buscarCategoriaPorNombre(String nombre){
+        System.out.println("llego a buscar  Categoria por nombre");
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Categoria> criteriaQuery= criteriaBuilder.createQuery(Categoria.class);
+        Root<Categoria> categoriaRoot= criteriaQuery.from(Categoria.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+        System.out.println("Salio de a buscar Categoria por nombre");
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
 }

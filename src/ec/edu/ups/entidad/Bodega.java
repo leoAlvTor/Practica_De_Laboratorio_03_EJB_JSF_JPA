@@ -2,18 +2,11 @@ package ec.edu.ups.entidad;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "getProductosBodega",
-                query = "SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO = ?",
-                resultClass = String.class
-        )
-})
 public class Bodega implements Serializable {
 
     @Id
@@ -24,15 +17,31 @@ public class Bodega implements Serializable {
     @ManyToOne
     private Ciudad ciudad;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "bodegasList")
+    @ManyToMany(mappedBy = "bodegasList")
+    @JoinColumn
     private List<Producto> productosList;
 
-    public Bodega(){}
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodega")
+    private List<Stock> lista_stock;
 
-    public Bodega(String nombre, Ciudad ciudad, List<Producto> productosList) {
+    public Bodega(){
+        productosList= new ArrayList<Producto>();
+    }
+
+    public Bodega( String nombre, Ciudad ciudad) {
+
         this.nombre = nombre;
         this.ciudad = ciudad;
-        this.productosList = productosList;
+        productosList = new ArrayList<Producto>();
+        lista_stock= new ArrayList<Stock>();
+    }
+
+    public List<Stock> getLista_stock() {
+        return lista_stock;
+    }
+
+    public void setLista_stock(List<Stock> lista_stock) {
+        this.lista_stock = lista_stock;
     }
 
     public int getCodigo() {
@@ -71,6 +80,10 @@ public class Bodega implements Serializable {
         return this.productosList.add(producto);
     }
 
+    public boolean addStock(Stock stock){
+        return this.lista_stock.add(stock);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,15 +95,5 @@ public class Bodega implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
-    }
-
-    @Override
-    public String toString() {
-        return "Bodega{" +
-                "codigo=" + codigo +
-                ", nombre='" + nombre + '\'' +
-                ", ciudad=" + ciudad +
-                ", productosList=" + productosList +
-                '}';
     }
 }

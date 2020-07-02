@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,26 @@ public class ProductoFacade extends AbstractFacade<Producto> {
             strings.add(Integer.valueOf(valueOf(e)));
         });
         return strings;
+    }
+
+    public Producto buscarProducto(String nombre){
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
+        Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
+        criteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    public Producto buscarPrductoPorNombre(String nombre){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 }
 
