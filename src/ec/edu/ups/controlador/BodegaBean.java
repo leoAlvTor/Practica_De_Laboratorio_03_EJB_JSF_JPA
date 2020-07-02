@@ -32,6 +32,9 @@ public class BodegaBean implements Serializable {
     private boolean level2ListDisabled = true, level3ListDisabled = true;
     private Map<String, String> paises;
     private String codePais;
+    private PaisBean paisBean;
+    private ProvinciaBean provinciaBean;
+    private CiudadBean ciudadBean;
 
     public BodegaBean(){
 
@@ -64,6 +67,17 @@ public class BodegaBean implements Serializable {
     public String add (){
 
 //        ejbBodegaFacade.create(new Bodega(this.nombre));
+        System.out.println(this.level3);
+
+        String [] paisProCiu=this.level3.split("-");
+        paisBean=new PaisBean();
+        provinciaBean=new ProvinciaBean();
+        ciudadBean=new CiudadBean();
+
+        Pais p=paisBean.consultarPais(paisProCiu[0].toUpperCase());
+        Provincia pro=provinciaBean.consultarProvincia(paisProCiu[1].toUpperCase(),p);
+        Ciudad c=ciudadBean.consultarCiudad(paisProCiu[3].toUpperCase(),pro);
+
         return  null;
     }
 
@@ -144,7 +158,7 @@ public class BodegaBean implements Serializable {
             @Override
             public void onComplete(Response status) {
                 if (status.isSuccess()) {
-                    System.out.println(status.getResult().getClass().getSimpleName());
+
                     String pedro = status.getResult();
 
                     pedro = pedro.substring(0, pedro.length() - 1);
@@ -158,11 +172,11 @@ public class BodegaBean implements Serializable {
                         String[] pp2 = pp.split(",");
                         String key = pp2[0].substring(1, pp2[0].length() - 1);
                         String value = pp2[1].substring(pp2[1].length() - 3, pp2[1].length() - 1);
-                        System.out.println(key + " " + value);
+
                         paises.put(key, value);
                         paisesf.add(key);
                     }
-                    System.out.println(paises.get("Ecuador"));
+
 
                 }
 
@@ -182,7 +196,7 @@ public class BodegaBean implements Serializable {
             @Override
             public void onComplete(Response status) {
                 if (status.isSuccess()) {
-                    System.out.println(status.getResult().getClass().getSimpleName());
+
                     String pedro = status.getResult();
 
                     pedro = pedro.substring(0, pedro.length() - 1);
@@ -215,7 +229,7 @@ public class BodegaBean implements Serializable {
             @Override
             public void onComplete(Response status) {
                 if (status.isSuccess()) {
-                    System.out.println(status.getResult().getClass().getSimpleName());
+
                     String pedro = status.getResult();
 
                     pedro = pedro.substring(0, pedro.length() - 1);
@@ -262,5 +276,8 @@ public class BodegaBean implements Serializable {
         else//return this.generateList(this.level2 + "--", 5);
             return this.obtenerCiudades(this.level2);
     }
+
+
+
 
 }

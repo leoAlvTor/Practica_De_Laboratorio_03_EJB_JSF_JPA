@@ -26,7 +26,7 @@ public class PaisBean {
     }
 
 
-    public Pais ConsultarPais(String nombre){
+    public Pais consultarPais(String nombre){
         Pais p=paisFacade.find(nombre);
         if (p ==null){
             paisFacade.create(new Pais(nombre,nombre));
