@@ -58,29 +58,30 @@
             </ul>
 
             <h:commandButton value="Add" action="#{bodegaBean.add}" />
+            <br/>
 
 
             Pais:
-            <h:selectOneMenu value="#{ajaxUbiGeo.level1}">
-                <f:selectItems value="#{ajaxUbiGeo.level1List}" />
+            <h:selectOneMenu value="#{bodegaBean.level1}">
+                <f:selectItems value="#{bodegaBean.level1List}" />
                 <f:ajax render="idList2 idList3 id4" onevent="indicador" />
             </h:selectOneMenu>
             <br />Provincia:
-            <h:selectOneMenu value="#{ajaxUbiGeo.level2}" id="idList2"
-                             disabled="#{ajaxUbiGeo.level2ListDisabled}">
-                <f:selectItems value="#{ajaxUbiGeo.level2List}" />
+            <h:selectOneMenu value="#{bodegaBean.level2}" id="idList2"
+                             disabled="#{bodegaBean.level2ListDisabled}">
+                <f:selectItems value="#{bodegaBean.level2List}" />
                 <f:ajax render="idList3 id4" onevent="indicador" />
             </h:selectOneMenu>
             <br />Canton:
-            <h:selectOneMenu value="#{ajaxUbiGeo.level3}" id="idList3"
-                             disabled="#{ajaxUbiGeo.level3ListDisabled}">
-                <f:selectItems value="#{ajaxUbiGeo.level3List}" />
+            <h:selectOneMenu value="#{bodegaBean.level3}" id="idList3"
+                             disabled="#{bodegaBean.level3ListDisabled}">
+                <f:selectItems value="#{bodegaBean.level3List}" />
                 <f:ajax render="id4" onevent="indicador" />
             </h:selectOneMenu>
 
 
             <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
-            <h:outputText value="#{ajaxUbiGeo.level3}" id="id4" />
+            <h:outputText value="#{bodegaBean.level3}" id="id4" />
 
         </fieldset>
 
