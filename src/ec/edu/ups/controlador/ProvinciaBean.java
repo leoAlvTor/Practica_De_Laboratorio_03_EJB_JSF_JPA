@@ -4,12 +4,14 @@ import ec.edu.ups.ejb.ProvinciaFacade;
 import ec.edu.ups.entidad.Pais;
 import ec.edu.ups.entidad.Provincia;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 @Named
 @RequestScoped
 public class ProvinciaBean {
+    @EJB
     private ProvinciaFacade provinciaFacade;
     private String nombre;
 

@@ -41,9 +41,6 @@
                 document.getElementById("id5").style.display = "none";
         }
     </script>
-
-
-
 </h:head>
 
 
@@ -55,36 +52,40 @@
         <fieldset>
             <legend>Registrar Bodega Nueva</legend>
 
-            <ul>
-                <li>Nombre Bodega:<h:inputText size="10" value="#{bodegaBean.nombre}"/></li>
-            </ul>
+            <p>Nombre Bodega:<h:inputText size="10" value="#{bodegaBean.nombre}"/></p>
 
-            <h:commandButton value="Add" action="#{bodegaBean.add}" />
-            <br/>
-
-
+            <p>Ubicacion:</p>
+            <p>
             Pais:
             <h:selectOneMenu value="#{bodegaBean.level1}">
                 <f:selectItems value="#{bodegaBean.level1List}" />
                 <f:ajax render="idList2 idList3 id4" onevent="indicador" />
             </h:selectOneMenu>
-            <br />Provincia:
+            </p>
+
+            <p>
+            Provincia:
             <h:selectOneMenu value="#{bodegaBean.level2}" id="idList2"
                              disabled="#{bodegaBean.level2ListDisabled}">
                 <f:selectItems value="#{bodegaBean.level2List}" />
                 <f:ajax render="idList3 id4" onevent="indicador" />
             </h:selectOneMenu>
-            <br />Canton:
+            </p>
+
+            <p>
+            Canton:
             <h:selectOneMenu value="#{bodegaBean.level3}" id="idList3"
                              disabled="#{bodegaBean.level3ListDisabled}">
                 <f:selectItems value="#{bodegaBean.level3List}" />
                 <f:ajax render="id4" onevent="indicador" />
             </h:selectOneMenu>
+            </p>
 
 
             <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
             <h:outputText value="#{bodegaBean.level3}" id="id4" />
 
+            <p><h:commandButton value="Agregar" action="#{bodegaBean.add}" /></p>
         </fieldset>
 
 
@@ -100,9 +101,16 @@
                 <h:outputText value="#{b.nombre}" rendered="#{not b.editable}" />
             </h:column>
 
+
+            <h:column>
+                <f:facet name="header">Ciudad</f:facet>
+                <h:inputText value="#{b.ciudad.nombre}" size="10" rendered="#{b.editable}" />
+                <h:outputText value="#{b.ciudad.nombre}" rendered="#{not b.editable}" />
+            </h:column>
+
             <h:column>
                 <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Delete" action="#{bodegaBean.delete(b)}" />
+                <h:commandLink value="Delete" action="#{bodegaBean.deleted(b)}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Accion</f:facet>

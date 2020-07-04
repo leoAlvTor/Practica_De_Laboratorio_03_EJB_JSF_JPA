@@ -2,6 +2,9 @@ package ec.edu.ups.controlador;
 
 
 import ec.edu.ups.ejb.BodegaFacade;
+import ec.edu.ups.ejb.CiudadFacade;
+import ec.edu.ups.ejb.PaisFacade;
+import ec.edu.ups.ejb.ProvinciaFacade;
 import ec.edu.ups.entidad.*;
 import ec.edu.ups.redes.HttpClient;
 import ec.edu.ups.redes.OnHttpRequestComplete;
@@ -12,6 +15,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
+import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +29,13 @@ public class BodegaBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @EJB
     private BodegaFacade ejbBodegaFacade;
+    @EJB
+    private PaisFacade paisFacade;
+    @EJB
+    private ProvinciaFacade provinciaFacade;
+    @EJB
+    private CiudadFacade ciudadFacade;
+
     private List<Bodega> bodegas;
     private String nombre;
     /*ADICION*/
@@ -32,6 +43,8 @@ public class BodegaBean implements Serializable {
     private boolean level2ListDisabled = true, level3ListDisabled = true;
     private Map<String, String> paises;
     private String codePais;
+
+
     private PaisBean paisBean;
     private ProvinciaBean provinciaBean;
     private CiudadBean ciudadBean;
@@ -44,6 +57,9 @@ public class BodegaBean implements Serializable {
     @PostConstruct
     public void init(){
         bodegas=ejbBodegaFacade.findAll();
+        paisBean= new PaisBean();
+        provinciaBean =new ProvinciaBean();
+        ciudadBean=new CiudadBean();
 
     }
 
@@ -64,22 +80,62 @@ public class BodegaBean implements Serializable {
     }
 
 
-    public String add (){
+    public String add (){/*pedro*/
 
-//        ejbBodegaFacade.create(new Bodega(this.nombre));
-        System.out.println(this.level3);
 
         String [] paisProCiu=this.level3.split("-");
-        paisBean=new PaisBean();
-        provinciaBean=new ProvinciaBean();
-        ciudadBean=new CiudadBean();
 
-        Pais p=paisBean.consultarPais(paisProCiu[0].toUpperCase());
-        Provincia pro=provinciaBean.consultarProvincia(paisProCiu[1].toUpperCase(),p);
-        Ciudad c=ciudadBean.consultarCiudad(paisProCiu[3].toUpperCase(),pro);
+        Pais pais = paisFacade.find("EC");
+        /*POR DEFECTO VOY A USAR EL PAIS DE ECUADOR*/
+        Provincia provincia=consultarProvincia(paisProCiu[1].toUpperCase(),pais);
+        Ciudad ciudad =consultarCiudad(paisProCiu[2].toUpperCase(),provincia);
+
+        ejbBodegaFacade.create(new Bodega(this.nombre,ciudad));
+
+
+/*        Provincia pro=provinciaBean.consultarProvincia(paisProCiu[1].toUpperCase(),p);
+        Ciudad c=ciudadBean.consultarCiudad(paisProCiu[2].toUpperCase(),pro);*/
 
         return  null;
     }
+    
+    /*METODOS ADICIONADOS*/
+
+    public Pais consultarPais(String nombre){
+        Pais p;
+
+        System.out.println("PAIS BEANNNN*******************************"+nombre);
+
+        p=paisFacade.find(nombre);
+        if (p==null){
+            paisFacade.create(new Pais(nombre,nombre));
+            System.out.println("Crear PAIS"+nombre);
+            return paisFacade.find(nombre);
+        }
+        return new Pais("", "");
+    }
+
+
+    public Provincia consultarProvincia(String nombre, Pais pais){
+        Provincia p=provinciaFacade.find(nombre);
+        if (p ==null){
+            provinciaFacade.create(new Provincia(nombre,nombre,pais));
+            return  provinciaFacade.find(nombre);
+        }
+        return p;
+    }
+
+
+    public Ciudad consultarCiudad(String nombre, Provincia provincia){
+        Ciudad c=ciudadFacade.find(nombre);
+        if (c ==null){
+            ciudadFacade.create(new Ciudad(nombre,nombre,provincia));
+            return ciudadFacade.find(nombre);
+        }
+        return c;
+    }
+    
+    
 
     public String deleted(Bodega b){
         ejbBodegaFacade.remove(b);
@@ -183,7 +239,7 @@ public class BodegaBean implements Serializable {
             }
         });
 
-        cliente.excecute("http://battuta.medunes.net/api/country/all/?key=14aa95483fee2c14f4e20d45a0bac62e");
+        cliente.excecute("http://battuta.medunes.net/api/country/all/?key=bd03f0870b19b170bab64d4de139ece7");
         return paisesf;
     }
 
@@ -217,7 +273,7 @@ public class BodegaBean implements Serializable {
             }
         });
         this.codePais=paises.get(pais);
-        cliente.excecute("http://battuta.medunes.net/api/region/"+this.codePais+"/all/?key=14aa95483fee2c14f4e20d45a0bac62e");
+        cliente.excecute("http://battuta.medunes.net/api/region/"+this.codePais+"/all/?key=bd03f0870b19b170bab64d4de139ece7");
         return provincias;
     }
 
@@ -250,7 +306,7 @@ public class BodegaBean implements Serializable {
         });
         String[] provinciaF=provincia.split(" ");
 
-        cliente.excecute("http://battuta.medunes.net/api/city/"+this.codePais+"/search/?region="+provinciaF[provinciaF.length-1]+"&key=14aa95483fee2c14f4e20d45a0bac62e");
+        cliente.excecute("http://battuta.medunes.net/api/city/"+this.codePais+"/search/?region="+provinciaF[provinciaF.length-1]+"&key=bd03f0870b19b170bab64d4de139ece7");
         return ciudades;
     }
 

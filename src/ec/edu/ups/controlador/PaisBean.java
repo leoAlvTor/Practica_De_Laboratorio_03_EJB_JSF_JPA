@@ -3,17 +3,30 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.PaisFacade;
 import ec.edu.ups.entidad.Pais;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named
-@RequestScoped
-public class PaisBean {
-    private PaisFacade paisFacade;
+@SessionScoped
+public class PaisBean implements Serializable {
+    @EJB
+    private PaisFacade ejbpaisFacade;
+
     private String nombre;
 
 
     public PaisBean(){
+
+    }
+
+    @PostConstruct
+    public void init(){
+
+
 
     }
 
@@ -27,11 +40,16 @@ public class PaisBean {
 
 
     public Pais consultarPais(String nombre){
-        Pais p=paisFacade.find(nombre);
-        if (p ==null){
-            paisFacade.create(new Pais(nombre,nombre));
-            return (Pais) paisFacade.find(nombre);
+        Pais p;
+
+        System.out.println("PAIS BEANNNN*******************************"+nombre);
+
+        p=ejbpaisFacade.find(nombre);
+        if (p==null){
+            ejbpaisFacade.create(new Pais(nombre,nombre));
+            System.out.println("Crear PAIS"+nombre);
+            return ejbpaisFacade.find(nombre);
         }
-        return p;
+        return new Pais("", "");
     }
 }

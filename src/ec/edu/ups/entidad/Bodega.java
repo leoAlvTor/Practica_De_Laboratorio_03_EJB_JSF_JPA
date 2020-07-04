@@ -25,13 +25,13 @@ public class Bodega implements Serializable {
 
     public Bodega(){}
 
-    public Bodega( String nombre) {
+    public Bodega( String nombre,Ciudad ciudad) {
         this.nombre = nombre;
-
+        this.ciudad = ciudad;
         /*
         this.codigo = codigo;
-        this.ciudad = ciudad;
         this.productosList = productosList;*/
+
     }
 
     public int getCodigo() {
