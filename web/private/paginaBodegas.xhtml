@@ -40,6 +40,9 @@
             else if (data.status == "success")
                 document.getElementById("id5").style.display = "none";
         }
+        function pedro() {
+            alert("verga")
+        }
     </script>
 </h:head>
 
@@ -53,7 +56,6 @@
             <legend>Registrar Bodega Nueva</legend>
 
             <p>Nombre Bodega:<h:inputText size="10" value="#{bodegaBean.nombre}"/></p>
-
             <p>Ubicacion:</p>
             <p>
             Pais:
@@ -80,7 +82,6 @@
                 <f:ajax render="id4" onevent="indicador" />
             </h:selectOneMenu>
             </p>
-
 
             <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
             <h:outputText value="#{bodegaBean.level3}" id="id4" />
@@ -114,18 +115,15 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Edit" action="#{bodegaBean.edit(b)}" rendered="#{not b.editable}" />
-                <h:commandLink value="Save" action="#{bodegaBean.save(b)}" rendered="#{b.editable}" />
+
+                <h:commandLink value="Editar Bodega" action="#{bodegaBean.buscarBodega(b.codigo)}">
+                    <f:actionListener binding="#{bodegaBean.navegar()}" />
+                </h:commandLink>
             </h:column>
+
         </h:dataTable>
-
-
 
     </h:form>
 </h:body>
-
-
-
-
 
 </html>

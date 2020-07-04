@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>
+        Editar Bodega
+    </title>
+
+
+    <script type="text/javascript">
+        function indicador(data) {
+            if (data.status == "begin")
+                document.getElementById("id5").style.display = "inline";
+            else if (data.status == "success")
+                document.getElementById("id5").style.display = "none";
+        }
+    </script>
+
+</h:head>
+
+<h:body >
+
+    <h:form>
+        <fieldset>
+            <p >
+                <h:outputText  value="Nombre Bodega: " />
+                <h:inputText value="#{bodegaBean.nombreBodega}" />
+            </p>
+
+            <p>Ubicacion:</p>
+            <p>
+                Pais:
+                <h:selectOneMenu value="#{bodegaBean.level1}">
+                    <f:selectItems value="#{bodegaBean.level1List}" />
+                    <f:ajax render="idList2 idList3 id4" onevent="indicador" />
+                </h:selectOneMenu>
+            </p>
+
+            <p>
+                Provincia:
+                <h:selectOneMenu value="#{bodegaBean.level2}" id="idList2"
+                                 disabled="#{bodegaBean.level2ListDisabled}">
+                    <f:selectItems value="#{bodegaBean.level2List}" />
+                    <f:ajax render="idList3 id4" onevent="indicador" />
+                </h:selectOneMenu>
+            </p>
+
+            <p>
+                Canton:
+                <h:selectOneMenu value="#{bodegaBean.level3}" id="idList3"
+                                 disabled="#{bodegaBean.level3ListDisabled}">
+                    <f:selectItems value="#{bodegaBean.level3List}" />
+                    <f:ajax render="id4" onevent="indicador" />
+                </h:selectOneMenu>
+            </p>
+
+            <br /> <span id="id5" style="display: none;"> Cargando... </span>Elegido:
+            <h:outputText value="#{bodegaBean.level3}" id="id4" />
+
+        </fieldset>
+        <h:commandButton value="Guardar Cambios" action="#{bodegaBean.actualizarBodega()}">
+            <f:actionListener binding="#{bodegaBean.volver()}" />
+        </h:commandButton>
+
+    </h:form>
+
+</h:body>
+
+</html>
