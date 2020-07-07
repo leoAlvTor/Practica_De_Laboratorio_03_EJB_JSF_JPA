@@ -48,6 +48,7 @@ public class BodegaBean implements Serializable {
     private boolean level2ListDisabled = true, level3ListDisabled = true;
     private Map<String, String> paises;
     private String codePais;
+    private String apiKey="2bc544a252b49c53bf13d753815473cd";
 
 
     public BodegaBean(){
@@ -254,7 +255,7 @@ public class BodegaBean implements Serializable {
             }
         });
 
-        cliente.excecute("http://battuta.medunes.net/api/country/all/?key=bd03f0870b19b170bab64d4de139ece7");
+        cliente.excecute("http://battuta.medunes.net/api/country/all/?key"+apiKey);
         return paisesf;
     }
 
@@ -288,7 +289,7 @@ public class BodegaBean implements Serializable {
             }
         });
         this.codePais=paises.get(pais);
-        cliente.excecute("http://battuta.medunes.net/api/region/"+this.codePais+"/all/?key=bd03f0870b19b170bab64d4de139ece7");
+        cliente.excecute("http://battuta.medunes.net/api/region/"+this.codePais+"/all/?key="+apiKey);
         return provincias;
     }
 
@@ -321,7 +322,7 @@ public class BodegaBean implements Serializable {
         });
         String[] provinciaF=provincia.split(" ");
 
-        cliente.excecute("http://battuta.medunes.net/api/city/"+this.codePais+"/search/?region="+provinciaF[provinciaF.length-1]+"&key=bd03f0870b19b170bab64d4de139ece7");
+        cliente.excecute("http://battuta.medunes.net/api/city/"+this.codePais+"/search/?region="+provinciaF[provinciaF.length-1]+"&key="+apiKey);
         return ciudades;
     }
 
