@@ -77,25 +77,32 @@ public class DetalleBean implements Serializable {
 
 
     public String add() {
-        producto = ejbProductoFacade.buscarProducto(name);
-        if (producto.getStock() != 0){
-            this.id=producto.getCodigo();
-            this.name = producto.getNombre();
-            this.precio= producto.getPrecioVenta();
-            this.subtotal=this.quantity*producto.getPrecioVenta();
-            this.busqueda = "producto encontrado : stock : " + producto.getStock();
-            this.list.add(new Row(id, name, quantity,precio,subtotal));
-            this.subtotalcabecera = 0.0;
-            for(Row p: list){
-                subtotalcabecera = subtotalcabecera + p.getSubtotal();
-            }
-            this.descuento = 0.00;
-            this.iva=subtotalcabecera * 0.12;
-            this.totalpagar=this.iva + subtotalcabecera;
-        }else
-            this.busqueda = "producto no encontrado : sin stock : " ;
-        {
 
+        try {
+            producto = ejbProductoFacade.buscarProducto(name);
+            if (producto.getStock() != 0){
+                this.id=producto.getCodigo();
+                this.name = producto.getNombre();
+                this.precio= producto.getPrecioVenta();
+                this.subtotal=this.quantity*producto.getPrecioVenta();
+                this.busqueda = "producto encontrado : stock : " + producto.getStock();
+                this.list.add(new Row(id, name, quantity,precio,subtotal));
+                this.subtotalcabecera = 0.0;
+                for(Row p: list){
+                    subtotalcabecera = subtotalcabecera + p.getSubtotal();
+                }
+                this.descuento = 0.00;
+                this.iva=subtotalcabecera * 0.12;
+                this.totalpagar=this.iva + subtotalcabecera;
+            }else
+                this.busqueda = "producto no encontrado : sin stock : " ;
+            {
+
+            }
+
+
+        }catch (NullPointerException e){
+            mensaje = "Producto no encontrado ingrese otro producto";
         }
         return null;
     }
@@ -144,7 +151,9 @@ public class DetalleBean implements Serializable {
     public String save(Row t) {
         t.setEditable(false);
         this.subtotalcabecera = 0.0;
+
         for(Row p: list){
+            this.subtotal=p.getQuantity()*producto.getPrecioVenta();
             subtotalcabecera = subtotalcabecera + p.getSubtotal();
         }
         this.descuento = 0.00;
@@ -308,17 +317,24 @@ public class DetalleBean implements Serializable {
 
     //metodo para presentar si se encuentra la persona
     public void mensaje(){
-        persona = ejbPersonaFacade.find(this.cedula);
-        if ("".equals(this.cedula) || !this.cedula.equals(persona.getCedula()))  {
-            this.mensaje = "no se encontro ningun usuario ";
+
+        try {
+            persona = ejbPersonaFacade.find(this.cedula);
+            if ("".equals(this.cedula) || !this.cedula.equals(persona.getCedula()))  {
+                this.mensaje = "no se encontro ningun usuario ";
+            }
+            else {
+                this.mensaje = "Usuario encontrado";
+                this.nombre = persona.getNombre();
+                this.apellido = persona.getApellido();
+                this.celular = persona.getTelefono();
+                this.direccion = persona.getDireccion();
+            }
+
+        }catch (NullPointerException e){
+            this.mensaje = "No se encontro ningun usuario debe registrarlo ";
         }
-        else {
-            this.mensaje = "usuario encontrado";
-            this.nombre = persona.getNombre();
-            this.apellido = persona.getApellido();
-            this.celular = persona.getTelefono();
-            this.direccion = persona.getDireccion();
-        }
+
     }
 
     //metodo para registrar una persona a facturar

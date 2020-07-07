@@ -23,13 +23,19 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
 
     public Producto buscarProducto(String nombre){
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
-        Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
-        Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
-        criteriaQuery.select(usuarioRoot).where(predicate);
-        return entityManager.createQuery(criteriaQuery).getSingleResult();
+        
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Producto> criteriaQuery = criteriaBuilder.createQuery(Producto.class);
+            Root<Producto> usuarioRoot=criteriaQuery.from(Producto.class);
+            Predicate predicate = criteriaBuilder.equal(usuarioRoot.get("nombre"),nombre);
+            criteriaQuery.select(usuarioRoot).where(predicate);
+            return entityManager.createQuery(criteriaQuery).getSingleResult();
+            
+        }catch (Exception e){
+            return null;
+        }
+        
     }
 
     @Override
