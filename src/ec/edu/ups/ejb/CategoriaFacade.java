@@ -46,15 +46,6 @@ public class CategoriaFacade extends AbstractFacade<Categoria>{
         return entityManager.createQuery(categoriaCriteriaQuery).getSingleResult();
     }
 
-    public Categoria buscarCategoriaPorNombre(String nombre){
-        System.out.println("llego a buscar  Categoria por nombre");
-        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
-        CriteriaQuery<Categoria> criteriaQuery= criteriaBuilder.createQuery(Categoria.class);
-        Root<Categoria> categoriaRoot= criteriaQuery.from(Categoria.class);
-        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("nombre"),nombre);
-        criteriaQuery.select(categoriaRoot).where(predicate);
-        System.out.println("Salio de a buscar Categoria por nombre");
-        return entityManager.createQuery(criteriaQuery).getSingleResult();
-    }
+
 
 }
