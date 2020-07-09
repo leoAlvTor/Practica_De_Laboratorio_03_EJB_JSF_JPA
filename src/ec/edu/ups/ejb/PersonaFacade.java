@@ -1,10 +1,16 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Persona;
+import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.Optional;
 
 @Stateless
 public class PersonaFacade extends AbstractFacade<Persona>{
@@ -19,4 +25,25 @@ public class PersonaFacade extends AbstractFacade<Persona>{
     protected  EntityManager getEntityManager(){
         return entityManager;
     }
+
+    public boolean verificarUsuario(String cedula, String password){
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Persona> usuarioCriteriaQuery = criteriaBuilder.createQuery(Persona.class);
+        Root<Persona> usuarioRoot = usuarioCriteriaQuery.from(Persona.class);
+
+        Predicate[] predicates = new Predicate[]{criteriaBuilder.equal(usuarioRoot.get("cedula"), cedula),
+        criteriaBuilder.equal(usuarioRoot.get("password"), password),
+        criteriaBuilder.equal(usuarioRoot.get("anulado"), 'F')};
+
+        usuarioCriteriaQuery.select(usuarioRoot)
+                .where(predicates);
+        try {
+            Persona persona = getEntityManager().createQuery(usuarioCriteriaQuery).getSingleResult();
+            return persona != null;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 }

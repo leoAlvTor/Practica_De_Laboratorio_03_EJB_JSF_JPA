@@ -37,6 +37,7 @@ public class FacturaCabecera implements Serializable {
         this.descuento = descuento;
         this.subtotal = subtotal;
         this.iva_total = iva_total;
+        this.iva_total = iva_total;
         this.total = total;
         this.listaFacturasDetalles = listaFacturasDetalles;
         this.persona = persona;
@@ -114,11 +115,11 @@ public class FacturaCabecera implements Serializable {
         this.listaFacturasDetalles = listaFacturasDetalles;
     }
 
-    public Persona getPersona() {
+    public Persona getpersona() {
         return persona;
     }
 
-    public void setPersona(Persona persona) {
+    public void setpersona(Persona persona) {
         this.persona = persona;
     }
 

@@ -11,6 +11,7 @@
           <element id="library" level="project" name="JPA 2.0-2.0" />
           <element id="library" level="project" name="Mojarra-2.3.8" />
           <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="JAX-RS-2.1.1" />
         </element>
       </element>
     </root>
