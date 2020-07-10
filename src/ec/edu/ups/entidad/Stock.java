@@ -1,11 +1,8 @@
 package ec.edu.ups.entidad;
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

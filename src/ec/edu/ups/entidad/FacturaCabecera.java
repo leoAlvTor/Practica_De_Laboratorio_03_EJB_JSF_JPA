@@ -25,11 +25,13 @@ public class FacturaCabecera implements Serializable {
 
     @ManyToOne
     private Persona persona;
+    //PEDIDOS
+    @OneToOne
+    private Pedido pedido;
 
     public FacturaCabecera(){}
 
-    public FacturaCabecera(int codigo, GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, List<FacturaDetalle> listaFacturasDetalles, Persona persona) {
-        this.codigo = codigo;
+    public FacturaCabecera(GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, List<FacturaDetalle> listaFacturasDetalles, Persona persona, Pedido pedido) {
         this.fecha = fecha;
         this.anulado = anulado;
         this.descuento = descuento;
@@ -38,6 +40,7 @@ public class FacturaCabecera implements Serializable {
         this.total = total;
         this.listaFacturasDetalles = listaFacturasDetalles;
         this.persona = persona;
+        this.pedido = pedido;
     }
 
     public int getCodigo() {
@@ -112,24 +115,12 @@ public class FacturaCabecera implements Serializable {
         this.persona = persona;
     }
 
-    public double calcularTotal(){
-        return 0;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public double calcularIvaTotal(){
-        return 0;
-    }
-
-    public double calcularSubtotal(){
-        return 0;
-    }
-
-    public double calcularDescuento(){
-        return 0;
-    }
-
-    public boolean agregarDetalle(FacturaDetalle facturaDetalle){
-        return listaFacturasDetalles.add(facturaDetalle);
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     @Override
@@ -155,6 +146,9 @@ public class FacturaCabecera implements Serializable {
                 ", subtotal=" + subtotal +
                 ", iva_total=" + iva_total +
                 ", total=" + total +
+                ", listaFacturasDetalles=" + listaFacturasDetalles +
+                ", persona=" + persona +
+                ", pedido=" + pedido +
                 '}';
     }
 }

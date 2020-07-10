@@ -1,6 +1,9 @@
 package ec.edu.ups.entidad;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -17,15 +20,20 @@ public class Persona implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<FacturaCabecera> facturasCabeceraList;
+    //PEDIDOS
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "persona")
+    private List<Pedido> pedidos;
 
     public Persona(){}
 
-    public Persona(String cedula, String nombre, String apellido, String direccion, String telefono) {
-        this.cedula = cedula;
+    public Persona(String cedula,String nombre, String apellido, String direccion, String telefono, List<FacturaCabecera> facturasCabeceraList, List<Pedido> pedidos) {
+       this.cedula=cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.facturasCabeceraList = facturasCabeceraList;
+        this.pedidos = pedidos;
     }
 
     public String getCedula() {
@@ -68,8 +76,20 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-    public boolean agregarFacturaCabecera(FacturaCabecera facturaCabecera){
-        return facturasCabeceraList.add(facturaCabecera);
+    public List<FacturaCabecera> getFacturasCabeceraList() {
+        return facturasCabeceraList;
+    }
+
+    public void setFacturasCabeceraList(List<FacturaCabecera> facturasCabeceraList) {
+        this.facturasCabeceraList = facturasCabeceraList;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
@@ -83,5 +103,18 @@ public class Persona implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(cedula);
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "cedula='" + cedula + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", facturasCabeceraList=" + facturasCabeceraList +
+                ", pedidos=" + pedidos +
+                '}';
     }
 }
