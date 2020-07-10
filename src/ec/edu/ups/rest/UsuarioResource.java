@@ -1,12 +1,9 @@
 package ec.edu.ups.rest;
 
 import ec.edu.ups.ejb.PersonaFacade;
-import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.entidad.Persona;
-import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.EJB;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,15 +34,19 @@ public class UsuarioResource {
     @Path("/register/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response register(@FormParam("cedula") String cedula, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido,
-                             @FormParam("direccion") String direccion, @FormParam("telefono") String telefono,
-                             @FormParam("correo") String correo, @FormParam("password") String password){
-        Persona persona = new Persona(cedula, nombre, apellido, direccion, telefono, correo, password, 'F');
-        try {
-            personaFacade.create(persona);
-            return Response.ok("Se ha creado el usuario correctamente").build();
-        }catch (Exception e){
-        return Response.status(Response.Status.BAD_REQUEST).entity("Ha ocurrido un error!" + e.getMessage()).build();
+    public Response register(@FormParam("cedula") String cedula, @FormParam("correo") String correo, @FormParam("password") String password){
+        Persona persona = personaFacade.find(cedula);
+        if(persona != null){
+            persona.setCorreo(correo);
+            persona.setPassword(password);
+            try{
+                personaFacade.edit(persona);
+                return Response.status(Response.Status.ACCEPTED).entity("Se creo el usuario correctamente!").build();
+            }catch (Exception e){
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al crear usuario!" + e.getCause()).build();
+            }
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).entity("Error, no se ha encontrado al usuario!").build();
         }
     }
 

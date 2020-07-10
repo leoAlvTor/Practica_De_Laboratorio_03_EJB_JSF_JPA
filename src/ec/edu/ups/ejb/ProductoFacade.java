@@ -3,13 +3,11 @@ package ec.edu.ups.ejb;
 import ec.edu.ups.entidad.Categoria;
 
 
-import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,9 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.String.*;
@@ -74,14 +70,55 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                  .parallelStream()
                  .collect(Collectors.toMap(entry -> valueOf(entry.getKey()), Map.Entry::getValue));
     }
-    private List<Integer> strings;
+    private List<Integer> codigoProductos;
     public List<Integer> getProductosPorBodega(int codigoBodega){
-        strings = new ArrayList<>();
-        Query query = entityManager.createNativeQuery("SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO =" + valueOf(codigoBodega));
-        query.getResultList().forEach(e-> {
-            strings.add(Integer.valueOf(valueOf(e)));
-        });
-        return strings;
+        codigoProductos = new ArrayList<>();
+        Query query = entityManager.createNativeQuery("SELECT productosList_CODIGO from PRODUCTO_BODEGA where bodegasList_CODIGO =" + codigoBodega);
+        List objectList = query.getResultList();
+        if(!objectList.isEmpty()){
+            objectList.forEach(e-> {
+                codigoProductos.add(Integer.valueOf(valueOf(e)));
+            });
+        }
+        return codigoProductos;
+    }
+
+    private List<Producto> productos;
+    public List<Producto> getProductos(int codigoBodega, int codigoCategoria){
+        productos = new ArrayList<>();
+        List<Integer> codigosProducto = getProductosPorBodega(codigoBodega);
+        if(!codigosProducto.isEmpty()) {
+            codigosProducto.forEach(e -> productos.add(super.find(e)));
+            productos = productos
+                    .parallelStream()
+                    .filter(producto -> producto.getCategoria().getCodigo() == codigoCategoria)
+                    .collect(Collectors.toList());
+            List<Producto> productoList = new ArrayList<>();
+            productos.forEach(p -> {
+                Producto producto = new Producto(p.getNombre(), p.getImagen(), p.getPrecioCompra(), p.getPrecioVenta(), p.getIva(), p.getStock(), null, null, null);
+                productoList.add(producto);
+            });
+            return productoList;
+        }
+        return productos;
+    }
+
+    private List<Categoria> categoriasList;
+
+    public List<Categoria> getCategorias(int codigoBodega){
+        categoriasList = new ArrayList<>();
+        List<Integer> codigosProductos = getProductosPorBodega(codigoBodega);
+
+        if(!codigosProductos.isEmpty()){
+            codigosProductos.forEach(e->{
+                categoriasList.add(super.find(e).getCategoria());
+            });
+            Set<Categoria> categorias = new HashSet<>(categoriasList);
+            categoriasList.clear();
+            categorias.forEach(e->{e.setProductosList(null); categoriasList.add(e);});
+            return categoriasList;
+        }else
+            return new ArrayList<>();
     }
 
 

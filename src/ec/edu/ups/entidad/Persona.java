@@ -122,4 +122,19 @@ public class Persona implements Serializable {
     public int hashCode() {
         return Objects.hash(cedula);
     }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "cedula='" + cedula + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", correo='" + correo + '\'' +
+                ", password='" + password + '\'' +
+                ", anulado=" + anulado +
+                ", facturasCabeceraList=" + facturasCabeceraList +
+                '}';
+    }
 }

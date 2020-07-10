@@ -64,9 +64,6 @@ public class DetalleBean implements Serializable {
     private String celular;
     private String correo;
 
-
-
-
     public DetalleBean() {
         this.fila = 1;
     }
@@ -302,7 +299,9 @@ public class DetalleBean implements Serializable {
     public void crearPersona(){
         System.out.println("ha llegado a crear una persona");
         System.out.println(cedula + nombre + apellido +direccion + celular);
-        ejbPersonaFacade.create(new Persona(this.cedula, this.nombre, this.apellido, this.direccion, this.celular));
+        Persona persona = new Persona(this.cedula, this.nombre, this.apellido, this.direccion, this.celular, "@@", "##@@!!", 'F');
+        System.out.println("--->"+persona.toString());
+        ejbPersonaFacade.create(persona);
         this.mensaje = "usuario registrado exitosamente";
     }
 

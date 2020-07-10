@@ -1,5 +1,6 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Producto implements Serializable {
     private char iva;
     private int stock;
 
+    @JsonbTransient
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinColumn
     private List<Bodega> bodegasList;
