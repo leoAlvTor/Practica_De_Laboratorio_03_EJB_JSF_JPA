@@ -40,9 +40,6 @@
             else if (data.status == "success")
                 document.getElementById("id5").style.display = "none";
         }
-        function pedro() {
-            alert("verga")
-        }
     </script>
 </h:head>
 
@@ -109,10 +106,10 @@
                 <h:outputText value="#{b.ciudad.nombre}" rendered="#{not b.editable}" />
             </h:column>
 
-            <h:column>
+       <!--     <h:column>
                 <f:facet name="header">Accion</f:facet>
                 <h:commandLink value="Delete" action="#{bodegaBean.deleted(b)}" />
-            </h:column>
+            </h:column>-->
             <h:column>
                 <f:facet name="header">Accion</f:facet>
 

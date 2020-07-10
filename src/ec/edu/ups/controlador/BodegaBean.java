@@ -58,7 +58,7 @@ public class BodegaBean implements Serializable {
 
     @PostConstruct
     public void init(){
-        bodegas=ejbBodegaFacade.findAll();
+        this.bodegas=this.ejbBodegaFacade.findAll();
 
     }
 
@@ -85,8 +85,12 @@ public class BodegaBean implements Serializable {
         /*POR DEFECTO VOY A USAR EL PAIS DE ECUADOR*/
         Provincia provincia=consultarProvincia(paisProCiu[1].toUpperCase(),pais);
         Ciudad ciudad =consultarCiudad(paisProCiu[2].toUpperCase(),provincia);
-        ejbBodegaFacade.create(new Bodega(this.nombre,ciudad));
-        bodegas=ejbBodegaFacade.findAll();
+        this.ejbBodegaFacade.create(new Bodega(this.nombre.toUpperCase(),ciudad));
+        /*limipeza de campos*/
+        this.nombre="";
+        this.level1="---Elige---";
+        this.level3="---Elige---";
+        this.bodegas=this.ejbBodegaFacade.findAll();
         return  null;
     }
     
@@ -127,6 +131,8 @@ public class BodegaBean implements Serializable {
     }
 
 
+
+
     public void buscarBodega(int codigo){
         this.bodega=ejbBodegaFacade.find(codigo);
         this.nombreBodega=bodega.getNombre();
@@ -140,18 +146,18 @@ public class BodegaBean implements Serializable {
         Ciudad ciudad =consultarCiudad(paisProCiu[2].toUpperCase(),provincia);
         this.bodega.setCiudad(ciudad);
         this.bodega.setNombre(nombreBodega.toUpperCase());
-        ejbBodegaFacade.edit(this.bodega);
+        this.ejbBodegaFacade.edit(this.bodega);
+        this.bodegas=null;
+        this.bodegas=ejbBodegaFacade.findAll();
+        this.level1="---Elige---";
+        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "paginaBodegas.xhtml");
     }
 
     public void navegar(){
         FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "paginaEdicionBodega.xhtml");
     }
 
-    public String volver(){
-        bodegas=ejbBodegaFacade.findAll();
-        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "paginaBodegas.xhtml");
-        return null;
-    }
+
 
     public String deleted(Bodega b){
         ejbBodegaFacade.remove(b);
@@ -165,7 +171,7 @@ public class BodegaBean implements Serializable {
     }
 
     public String save(Bodega b){
-        ejbBodegaFacade.edit(b);
+        this.ejbBodegaFacade.edit(b);
         b.setEditable(false);
         return null;
     }
@@ -255,7 +261,7 @@ public class BodegaBean implements Serializable {
             }
         });
 
-        cliente.excecute("http://battuta.medunes.net/api/country/all/?key"+apiKey);
+        cliente.excecute("http://battuta.medunes.net/api/country/all/?key="+apiKey);
         return paisesf;
     }
 

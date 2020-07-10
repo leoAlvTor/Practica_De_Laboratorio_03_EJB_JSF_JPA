@@ -26,6 +26,7 @@
 <h:body >
 
     <h:form>
+        <p>Editar Bodega</p>
         <fieldset>
             <p >
                 <h:outputText  value="Nombre Bodega: " />
@@ -64,7 +65,6 @@
 
         </fieldset>
         <h:commandButton value="Guardar Cambios" action="#{bodegaBean.actualizarBodega()}">
-            <f:actionListener binding="#{bodegaBean.volver()}" />
         </h:commandButton>
 
     </h:form>
