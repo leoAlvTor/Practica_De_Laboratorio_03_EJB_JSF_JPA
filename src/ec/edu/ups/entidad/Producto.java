@@ -52,6 +52,19 @@ public class Producto implements Serializable {
         lista_stock= new ArrayList<Stock>();
     }
 
+    public Producto(int codigo, String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.iva = iva;
+        this.stock = stock;
+        this.bodegasList = bodegasList;
+        this.categoria = categoria;
+        this.facturasDetallesList = facturasDetallesList;
+    }
+
     public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
         this.nombre = nombre;
         this.imagen = imagen;

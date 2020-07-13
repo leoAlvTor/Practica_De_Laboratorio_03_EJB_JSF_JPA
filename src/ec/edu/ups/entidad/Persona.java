@@ -1,6 +1,9 @@
 package ec.edu.ups.entidad;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -20,18 +23,38 @@ public class Persona implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<FacturaCabecera> facturasCabeceraList;
+    //PEDIDOS
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "persona")
+    private List<Pedido> pedidos;
 
     public Persona(){}
 
-    public Persona(String cedula, String nombre, String apellido, String direccion, String telefono, String correo, String password, char anulado) {
-        this.cedula = cedula;
+    public Persona(String cedula,String nombre, String apellido, String direccion, String telefono, List<FacturaCabecera> facturasCabeceraList, List<Pedido> pedidos) {
+        this.cedula=cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.facturasCabeceraList = facturasCabeceraList;
+        this.pedidos = pedidos;
+    }
+
+    public Persona(String cedula, String nombre, String apellido, String direccion, String celular, String correo, String password, char anulado) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.cedula = celular;
         this.correo = correo;
         this.password = password;
         this.anulado = anulado;
+    }
+
+    public Persona(String cedula, String nombre, String apellido, String direccion, String celular) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
     }
 
     public String getCorreo() {
@@ -50,12 +73,12 @@ public class Persona implements Serializable {
         this.password = password;
     }
 
-    public Persona(String cedula, String nombre, String apellido, String direccion, String telefono) {
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.direccion = direccion;
-        this.telefono = telefono;
+    public char getAnulado() {
+        return anulado;
+    }
+
+    public void setAnulado(char anulado) {
+        this.anulado = anulado;
     }
 
     public String getCedula() {
@@ -98,16 +121,20 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-    public char getAnulado() {
-        return anulado;
+    public List<FacturaCabecera> getFacturasCabeceraList() {
+        return facturasCabeceraList;
     }
 
-    public void setAnulado(char anulado) {
-        this.anulado = anulado;
+    public void setFacturasCabeceraList(List<FacturaCabecera> facturasCabeceraList) {
+        this.facturasCabeceraList = facturasCabeceraList;
     }
 
-    public boolean agregarFacturaCabecera(FacturaCabecera facturaCabecera){
-        return facturasCabeceraList.add(facturaCabecera);
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
@@ -131,10 +158,8 @@ public class Persona implements Serializable {
                 ", apellido='" + apellido + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +
-                ", correo='" + correo + '\'' +
-                ", password='" + password + '\'' +
-                ", anulado=" + anulado +
                 ", facturasCabeceraList=" + facturasCabeceraList +
+                ", pedidos=" + pedidos +
                 '}';
     }
 }

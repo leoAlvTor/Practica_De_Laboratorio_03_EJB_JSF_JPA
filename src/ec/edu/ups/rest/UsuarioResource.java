@@ -4,6 +4,8 @@ import ec.edu.ups.ejb.PersonaFacade;
 import ec.edu.ups.entidad.Persona;
 
 import javax.ejb.EJB;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -23,10 +25,16 @@ public class UsuarioResource {
 
         if (personaFacade.verificarUsuario(cedula, password)){
             System.out.println("USUARIO EXISTENTE");
-            return Response.ok("USUARIO EXISTENTE").build();
+            return Response.ok("1").header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }else{
-            System.out.println("NO EXISTE EL USUARIO!");
-            return Response.ok("NO EXISTE EL USUARIO O ESTA ANULADO!").build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }
     }
 
@@ -41,12 +49,24 @@ public class UsuarioResource {
             persona.setPassword(password);
             try{
                 personaFacade.edit(persona);
-                return Response.status(Response.Status.ACCEPTED).entity("Se creo el usuario correctamente!").build();
+                return Response.status(Response.Status.ACCEPTED).entity("1")
+                        .header("Access-Control-Allow-Origins", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                        .build();
             }catch (Exception e){
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al crear usuario!" + e.getCause()).build();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error al crear usuario!" + e.getCause())
+                        .header("Access-Control-Allow-Origins", "*")
+                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                        .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                        .build();
             }
         }else{
-            return Response.status(Response.Status.BAD_REQUEST).entity("Error, no se ha encontrado al usuario!").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("2")
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }
     }
 
@@ -67,9 +87,17 @@ public class UsuarioResource {
             persona.setCorreo(correo);
             persona.setPassword(password);
             personaFacade.edit(persona);
-            return Response.ok("Se ha actualizado el usuario correctamente!").build();
+            return Response.ok("Se ha actualizado el usuario correctamente!")
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }catch (Exception e){
-            return Response.status(418).entity("No se ha podido actualizar el usuario" + e.getMessage()).build();
+            return Response.status(418).entity("No se ha podido actualizar el usuario" + e.getMessage())
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }
     }
 
@@ -82,9 +110,17 @@ public class UsuarioResource {
             Persona persona = personaFacade.find(cedula);
             persona.setAnulado('T');
             personaFacade.edit(persona);
-            return Response.status(Response.Status.BAD_REQUEST).entity("Se ha anulado el usuario correctamente!").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("Se ha anulado el usuario correctamente!")
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }catch (Exception e){
-            return Response.status(Response.Status.BAD_REQUEST).entity("Error al anular la cuenta del usuario" + e.getCause()).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("Error al anular la cuenta del usuario" + e.getCause())
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
         }
     }
 

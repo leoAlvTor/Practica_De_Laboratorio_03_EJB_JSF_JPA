@@ -94,10 +94,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                     .filter(producto -> producto.getCategoria().getCodigo() == codigoCategoria)
                     .collect(Collectors.toList());
             List<Producto> productoList = new ArrayList<>();
+
             productos.forEach(p -> {
-                Producto producto = new Producto(p.getNombre(), p.getImagen(), p.getPrecioCompra(), p.getPrecioVenta(), p.getIva(), p.getStock(), null, null, null);
+                Producto producto = new Producto(p.getCodigo(), p.getNombre(), p.getImagen(), p.getPrecioCompra(),
+                        p.getPrecioVenta(), p.getIva(), p.getStock(), null, null, null);
                 productoList.add(producto);
             });
+
+
             return productoList;
         }
         return productos;
