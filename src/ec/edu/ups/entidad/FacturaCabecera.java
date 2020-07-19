@@ -116,6 +116,14 @@ public class FacturaCabecera implements Serializable {
         this.total = total;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
     public List<FacturaDetalle> getListaFacturasDetalles() {
         return listaFacturasDetalles;
     }
