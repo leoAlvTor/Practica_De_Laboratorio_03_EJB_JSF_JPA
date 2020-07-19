@@ -64,9 +64,6 @@ public class DetalleBean implements Serializable {
     private String celular;
     private String correo;
 
-
-
-
     public DetalleBean() {
         this.fila = 1;
     }
@@ -100,11 +97,6 @@ public class DetalleBean implements Serializable {
         return null;
     }
 
-    public String delete(Row t) {
-        this.list.remove(t);
-        return null;
-    }
-
     public String getBusqueda() {
         return busqueda;
     }
@@ -134,10 +126,6 @@ public class DetalleBean implements Serializable {
         return null;
     }
 
-    public String save(Row t) {
-        t.setEditable(false);
-        return null;
-    }
 
     public Row[] getList() {
         return list.toArray(new Row[0]);
@@ -311,7 +299,9 @@ public class DetalleBean implements Serializable {
     public void crearPersona(){
         System.out.println("ha llegado a crear una persona");
         System.out.println(cedula + nombre + apellido +direccion + celular);
-        ejbPersonaFacade.create(new Persona(this.cedula, this.nombre, this.apellido, this.direccion, this.celular));
+        Persona persona = new Persona(this.cedula, this.nombre, this.apellido, this.direccion, this.celular, "@@", "##@@!!", 'F');
+        System.out.println("--->"+persona.toString());
+        ejbPersonaFacade.create(persona);
         this.mensaje = "usuario registrado exitosamente";
     }
 
@@ -336,6 +326,28 @@ public class DetalleBean implements Serializable {
         System.out.println("Se creo todos los detalles y se disminuyo el stock" );
 
         this.mensaje = "se ha creado exitosamente la factura";
+    }
+    public String save(Row t) {
+        t.setEditable(false);
+        this.subtotalcabecera = 0.0;
+        for(Row p: list){
+            subtotalcabecera = subtotalcabecera + p.getSubtotal();
+        }
+        this.descuento = 0.00;
+        this.iva=subtotalcabecera * 0.12;
+        this.totalpagar=this.iva + subtotalcabecera;
+        return null;
+    }
+    public String delete(Row t) {
+        this.list.remove(t);
+        this.subtotalcabecera = 0.0;
+        for(Row p: list){
+            subtotalcabecera = subtotalcabecera + p.getSubtotal();
+        }
+        this.descuento = 0.00;
+        this.iva=subtotalcabecera * 0.12;
+        this.totalpagar=this.iva + subtotalcabecera;
+        return null;
     }
 
 

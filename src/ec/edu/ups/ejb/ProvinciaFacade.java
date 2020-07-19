@@ -1,6 +1,5 @@
 package ec.edu.ups.ejb;
 
-import ec.edu.ups.entidad.Producto;
 import ec.edu.ups.entidad.Provincia;
 
 import javax.ejb.Stateless;

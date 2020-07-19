@@ -69,18 +69,18 @@
 
 
         <p> </p>
+        <p> </p>
         <h:outputLabel for="salida" value="Nombre:" ></h:outputLabel>
-        <h:inputText id="salida" value="#{detalleBean.nombre}" />
+        <h:inputText id="salida" value="#{detalleBean.nombre}"></h:inputText>
         <h:outputLabel for="salida5" value="Apellido:" ></h:outputLabel>
-        <h:inputText id="salida5" value="#{detalleBean.apellido}" />
+        <h:inputText id="salida5" value="#{detalleBean.apellido}"></h:inputText>
         <h:outputLabel for="salida2" value="Cedula:" ></h:outputLabel>
-        <h:inputText id="salida2" value="#{detalleBean.cedula}" />
+        <h:inputText id="salida2" value="#{detalleBean.cedula}"></h:inputText>
         <h:outputLabel for="salida3" value="Telefono:" ></h:outputLabel>
-        <h:inputText id="salida3" value="#{detalleBean.celular}" />
+        <h:inputText id="salida3" value="#{detalleBean.celular}"></h:inputText>
         <h:outputLabel for="salida4" value="Direccion:" ></h:outputLabel>
-        <h:inputText id="salida4" value="#{detalleBean.direccion}" />
-
-        <h:commandButton   style="margin: 10px" class="btn btn-warning" ><h:link value="Crear Persona" outcome="crearPersona.xhtml" />
+        <h:inputText id="salida4" value="#{detalleBean.direccion}"></h:inputText>
+        <h:commandButton   style="margin: 10px" class="btn btn-warning" value="Crear Persona" action="#{detalleBean.crearPersona()}">
         </h:commandButton>
 
         <h:outputText id="crear" value="#{detalleBean.mensaje}"/>

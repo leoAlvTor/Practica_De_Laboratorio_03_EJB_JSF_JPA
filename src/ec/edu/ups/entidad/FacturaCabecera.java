@@ -1,5 +1,6 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
@@ -27,6 +28,9 @@ public class FacturaCabecera implements Serializable {
 
     @ManyToOne
     private Persona persona;
+    //PEDIDOS
+    @OneToOne
+    private Pedido pedido;
 
     public FacturaCabecera(){}
 
@@ -37,9 +41,22 @@ public class FacturaCabecera implements Serializable {
         this.descuento = descuento;
         this.subtotal = subtotal;
         this.iva_total = iva_total;
+        this.iva_total = iva_total;
         this.total = total;
         this.listaFacturasDetalles = listaFacturasDetalles;
         this.persona = persona;
+    }
+
+    public FacturaCabecera(GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, List<FacturaDetalle> listaFacturasDetalles, Persona persona, Pedido pedido) {
+        this.fecha = fecha;
+        this.anulado = anulado;
+        this.descuento = descuento;
+        this.subtotal = subtotal;
+        this.iva_total = iva_total;
+        this.total = total;
+        this.listaFacturasDetalles = listaFacturasDetalles;
+        this.persona = persona;
+        this.pedido = pedido;
     }
 
     public int getCodigo() {
@@ -50,6 +67,7 @@ public class FacturaCabecera implements Serializable {
         this.codigo = codigo;
     }
 
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     public GregorianCalendar getFecha() {
         return fecha;
     }
@@ -98,14 +116,6 @@ public class FacturaCabecera implements Serializable {
         this.total = total;
     }
 
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
-
     public List<FacturaDetalle> getListaFacturasDetalles() {
         return listaFacturasDetalles;
     }
@@ -122,24 +132,20 @@ public class FacturaCabecera implements Serializable {
         this.persona = persona;
     }
 
-    public double calcularTotal(){
-        return 0;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public double calcularIvaTotal(){
-        return 0;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
-    public double calcularSubtotal(){
-        return 0;
+    public boolean isEditable() {
+        return editable;
     }
 
-    public double calcularDescuento(){
-        return 0;
-    }
-
-    public boolean agregarDetalle(FacturaDetalle facturaDetalle){
-        return listaFacturasDetalles.add(facturaDetalle);
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     @Override
@@ -165,6 +171,8 @@ public class FacturaCabecera implements Serializable {
                 ", subtotal=" + subtotal +
                 ", iva_total=" + iva_total +
                 ", total=" + total +
+                ", listaFacturasDetalles=" + listaFacturasDetalles +
+                ", persona=" + persona +
                 '}';
     }
 }
