@@ -79,7 +79,7 @@ public class BodegaBean implements Serializable {
     }
 
 
-    public String add (){/*pedro*/
+    public String add (){//pedro
         String [] paisProCiu=this.level3.split("-");
         Pais pais = paisFacade.find("EC");
         /*POR DEFECTO VOY A USAR EL PAIS DE ECUADOR*/
