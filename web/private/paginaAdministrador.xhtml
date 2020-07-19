@@ -10,18 +10,37 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" type="javascript"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" type="javascript"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' type=""></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <h:head>
     <title>Registro Producto</title>
+
     <style type="">
         h3{
             margin-left: 5%;
         }
 
     </style>
-</h:head>
-<h:body>
 
-    <h:form style="float: left;width: 40%;margin-right: 5%;margin-left: 10%;margin-top: 4%;">
+</h:head>
+
+<h:body>
+    <div class="navbar navbar-inverse" style="background-color: gainsboro">
+        <div class="">
+            <div class="navbar-brand"><i class="material-icons" style="font-size:30px;color:red">shopping_cart</i> Tienda Online</div>
+        </div>
+        <h:commandLink></h:commandLink>
+        <h:commandLink></h:commandLink>
+
+        <h:commandLink>Inicio <i class='fab fa-codepen' style='font-size:24px'></i></h:commandLink>
+        <h:commandLink>Administrador <i class='fas fa-address-card' style='font-size:24px'></i></h:commandLink>
+        <h:commandLink>Cerrar Sesion <i class="fa fa-window-close" style="font-size:24px"></i></h:commandLink>
+
+
+    </div>
+
+
+    <h:form style="float: left;width: 40%;margin-right: 10%;margin-left: 10%;margin-top: 4%;">
         <h3>JSF REGISTER PRODUCT</h3>
         <h:outputText value="nombre" style="background-color: blue; color: aliceblue;font-style: inherit;font-size: 20px; display: block;width: 60%;"/>
         <h:inputText id="nombre" value="#{productoBean.nombre}" style="width: 60%;"></h:inputText>
@@ -66,12 +85,12 @@
                          value="Registrar" class="btn btn-primary" style="margin-left: 7%;width: 45%;margin-top: 5%"></h:commandButton>
 
     </h:form >
-    <h:dataTable  value="#{productoBean.list}" var="c" styleClass="table table-dark table-striped"
-                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar" style=" width: 35%; margin-top: 2%; ">
 
+    <h:dataTable  style="width: 17%; height:200px;margin-top: 2%;" value="#{productoBean.list}" var="c" styleClass="table table-dark table-striped"
+                  headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
         <h:column>
             <f:facet name="header">Imagen</f:facet>
-            <h:outputText value="#{c.imagen}"  />
+            <img style="width: 100%" alt="" src="#{c.imagen}"/>
         </h:column>
         <h:column>
             <f:facet name="header">Nombre</f:facet>
@@ -95,7 +114,7 @@
         </h:selectManyMenu>
 
         <h:commandButton action="#{productoBean.aumentarStock}"
-                         value="Actualizar" class="btn btn-primary" style="margin-left: 7%;width: 25%;margin-top: 5%"></h:commandButton>
+                         value="Actualizar" class="btn btn-primary" style="margin-left: 3%;width: 25%;margin-top: 5%"></h:commandButton>
 
     </h:form>
     <h:form>
