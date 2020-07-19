@@ -22,8 +22,6 @@ public class CollectionBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<FacturaCabecera> list ;
 
-
-
     @EJB
     FacturaCabeceraFacade  ejbfacturaCabeceraFacade ;
 

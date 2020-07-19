@@ -34,6 +34,4 @@
             <to-view-id>/private/paginaProductos.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-
-
 </faces-config>
