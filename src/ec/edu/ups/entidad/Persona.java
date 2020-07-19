@@ -19,6 +19,9 @@ public class Persona implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<FacturaCabecera> facturasCabeceraList;
+    //PEDIDOS
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "persona")
+    private List<Pedido> pedidos;
 
     public Persona(){}
 
