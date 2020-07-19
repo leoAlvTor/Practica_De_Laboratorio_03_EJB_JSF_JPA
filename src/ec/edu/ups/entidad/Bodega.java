@@ -1,5 +1,6 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,13 +15,16 @@ public class Bodega implements Serializable {
     private int codigo;
     private String nombre;
 
+    //@JsonbTransient
     @ManyToOne
     private Ciudad ciudad;
 
+    @JsonbTransient
     @ManyToMany(mappedBy = "bodegasList")
     @JoinColumn
     private List<Producto> productosList;
 
+    //@JsonbTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodega")
     private List<Stock> lista_stock;
 
@@ -29,7 +33,6 @@ public class Bodega implements Serializable {
     }
 
     public Bodega( String nombre, Ciudad ciudad) {
-
         this.nombre = nombre;
         this.ciudad = ciudad;
         productosList = new ArrayList<Producto>();
@@ -92,12 +95,38 @@ public class Bodega implements Serializable {
         return codigo == bodega.codigo;
     }
 
+    public static List<Bodega> serializeBodegas(List<Bodega> bodegas){
+        List<Bodega> bodegaList = new ArrayList<>();
+        bodegas.forEach(
+                bodega -> {
+                    Pais pais = bodega.getCiudad().getProvincia().getPais();
+                    pais = new Pais(pais.getCodigo(), pais.getNombre());
+
+                    Provincia provincia = bodega.getCiudad().getProvincia();
+                    provincia = new Provincia(provincia.getCodigo(), provincia.getNombre(), pais, null);
+
+                    bodega.setCiudad(new Ciudad(bodega.getCiudad().getCodigo(), bodega.getCiudad().getNombre(), provincia, null));
+                    bodega.setProductosList(null);
+                    bodega.setLista_stock(null);
+                    bodegaList.add(bodega);
+                }
+        );
+        return bodegaList;
+    }
+
+    @Override
+    public String toString() {
+        return "Bodega{" +
+                "codigo=" + codigo +
+                ", nombre='" + nombre + '\'' +
+                ", ciudad=" + ciudad +
+                ", productosList=" + productosList +
+                ", lista_stock=" + lista_stock +
+                '}';
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(codigo);
     }
-
-
-
-
 }

@@ -16,7 +16,7 @@ public class CiudadFacade extends AbstractFacade<Ciudad> {
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 }

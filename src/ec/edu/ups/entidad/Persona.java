@@ -17,6 +17,9 @@ public class Persona implements Serializable {
     private String apellido;
     private String direccion;
     private String telefono;
+    private String correo;
+    private String password;
+    private char anulado;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<FacturaCabecera> facturasCabeceraList;
@@ -26,14 +29,56 @@ public class Persona implements Serializable {
 
     public Persona(){}
 
-    public Persona(String cedula,String nombre, String apellido, String direccion, String telefono, List<FacturaCabecera> facturasCabeceraList, List<Pedido> pedidos) {
-       this.cedula=cedula;
+    public Persona(String cedula, String nombre, String apellido, String direccion, String telefono, List<FacturaCabecera> facturasCabeceraList, List<Pedido> pedidos) {
+        this.cedula=cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
         this.facturasCabeceraList = facturasCabeceraList;
         this.pedidos = pedidos;
+    }
+
+    public Persona(String cedula, String nombre, String apellido, String direccion, String celular, String correo, String password, char anulado) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.cedula = celular;
+        this.correo = correo;
+        this.password = password;
+        this.anulado = anulado;
+    }
+
+    public Persona(String cedula, String nombre, String apellido, String direccion, String celular) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public char getAnulado() {
+        return anulado;
+    }
+
+    public void setAnulado(char anulado) {
+        this.anulado = anulado;
     }
 
     public String getCedula() {

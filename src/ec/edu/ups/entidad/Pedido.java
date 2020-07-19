@@ -18,6 +18,7 @@ public class Pedido implements Serializable {
     private FacturaCabecera facturaCabecera;
 
     public Pedido() {
+
     }
 
     public Pedido(String estado, GregorianCalendar fecha_emision, Persona persona, FacturaCabecera facturaCabecera) {

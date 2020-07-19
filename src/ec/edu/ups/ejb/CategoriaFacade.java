@@ -1,7 +1,6 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Categoria;
-import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,9 +9,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Stateless
-public class CategoriaFacade extends AbstractFacade<Categoria>{
+public class CategoriaFacade extends AbstractFacade<Categoria> {
 
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
@@ -32,8 +32,29 @@ public class CategoriaFacade extends AbstractFacade<Categoria>{
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
+
+    public Categoria getCategoryByName(String nombreCategoria){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Categoria> categoriaCriteriaQuery = criteriaBuilder.createQuery(Categoria.class);
+        Root<Categoria> categoriaRoot = categoriaCriteriaQuery.from(Categoria.class);
+
+        categoriaCriteriaQuery = categoriaCriteriaQuery.select(categoriaRoot)
+                .where(criteriaBuilder.equal(categoriaRoot.get("nombre"), nombreCategoria));
+        return entityManager.createQuery(categoriaCriteriaQuery).getSingleResult();
+    }
+
+    public List<Categoria> categoriaList(){
+
+
+
+        return null;
+    }
+
+
+
+
 
 }

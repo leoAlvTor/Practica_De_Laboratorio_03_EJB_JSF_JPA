@@ -16,7 +16,7 @@ public class ProvinciaFacade extends AbstractFacade<Provincia> {
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 }

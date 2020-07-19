@@ -3,13 +3,10 @@ package ec.edu.ups.controlador;
 import ec.edu.ups.ejb.UsuarioFacade;
 import ec.edu.ups.entidad.Usuario;
 
-
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
-
 import java.io.Serializable;
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)

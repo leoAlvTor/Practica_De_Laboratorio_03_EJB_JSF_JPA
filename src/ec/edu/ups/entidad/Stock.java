@@ -1,6 +1,7 @@
 package ec.edu.ups.entidad;
 
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,6 +15,8 @@ public class Stock  implements Serializable {
     private int stock;
     @ManyToOne
     private Producto producto;
+
+    @JsonbTransient
     @ManyToOne
     private Bodega bodega;
     public Stock() {

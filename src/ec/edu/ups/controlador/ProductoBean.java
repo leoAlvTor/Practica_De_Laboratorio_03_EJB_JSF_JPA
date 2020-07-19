@@ -4,7 +4,10 @@ import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
 import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.ejb.StockFacade;
-import ec.edu.ups.entidad.*;
+import ec.edu.ups.entidad.Bodega;
+import ec.edu.ups.entidad.Categoria;
+import ec.edu.ups.entidad.Producto;
+import ec.edu.ups.entidad.Stock;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

@@ -1,5 +1,6 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Producto implements Serializable {
     private char iva;
     private int stock;
 
+    @JsonbTransient
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinColumn
     private List<Bodega> bodegasList;
@@ -38,7 +40,7 @@ public class Producto implements Serializable {
         lista_stock= new ArrayList<Stock>();
     }
 
-    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, Categoria categoria) {
+    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock,Categoria categoria) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precioCompra = precioCompra;
@@ -50,8 +52,20 @@ public class Producto implements Serializable {
         lista_stock= new ArrayList<Stock>();
     }
 
-    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
+    public Producto(int codigo, String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.iva = iva;
+        this.stock = stock;
+        this.bodegasList = bodegasList;
+        this.categoria = categoria;
+        this.facturasDetallesList = facturasDetallesList;
+    }
 
+    public Producto(String nombre, String imagen, double precioCompra, double precioVenta, char iva, int stock, List<Bodega> bodegasList, Categoria categoria, List<FacturaDetalle> facturasDetallesList) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precioCompra = precioCompra;

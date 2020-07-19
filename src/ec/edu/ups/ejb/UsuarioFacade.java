@@ -1,8 +1,14 @@
 package ec.edu.ups.ejb;
+
 import ec.edu.ups.entidad.Usuario;
+
 import javax.ejb.Stateless;
-import javax.persistence.*;
-import javax.persistence.criteria.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
@@ -27,7 +33,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 

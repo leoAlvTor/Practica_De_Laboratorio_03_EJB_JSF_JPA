@@ -1,5 +1,6 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Ciudad implements Serializable {
     @ManyToOne
     private Provincia provincia;
 
+    @JsonbTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudad")
     private List<Bodega> listaBodeas;
 
