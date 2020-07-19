@@ -2,6 +2,7 @@ package ec.edu.ups.controlador;
 
 
 import ec.edu.ups.ejb.PedidoFacade;
+import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Pedido;
 
 import javax.annotation.PostConstruct;
@@ -39,9 +40,10 @@ public class PedidoBean implements Serializable {
         this.estadoSelect = estadoSelect;
     }
 
-    public List<Pedido> getListPedidos() {
-        return listPedidos;
+    public Pedido[] getListPedidos() {
+        return listPedidos.toArray(new Pedido[0]);
     }
+
 
     public void setListPedidos(List<Pedido> listPedidos) {
         this.listPedidos = listPedidos;
@@ -62,4 +64,5 @@ public class PedidoBean implements Serializable {
     public void setEstados(String[] estados) {
         this.estados = estados;
     }
+
 }

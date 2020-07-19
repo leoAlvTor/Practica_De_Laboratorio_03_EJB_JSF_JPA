@@ -22,7 +22,9 @@ public class FacturaCabecera implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaCabecera")
     private List<FacturaDetalle> listaFacturasDetalles;
-
+    //PEDIDOS
+    @OneToOne
+    private Pedido pedido;
     @ManyToOne
     private Persona persona;
 
