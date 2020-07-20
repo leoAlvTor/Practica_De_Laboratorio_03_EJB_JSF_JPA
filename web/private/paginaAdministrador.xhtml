@@ -31,12 +31,10 @@
         </div>
         <h:commandLink></h:commandLink>
         <h:commandLink></h:commandLink>
-
         <h:commandLink>Inicio <i class='fab fa-codepen' style='font-size:24px'></i></h:commandLink>
         <h:commandLink>Administrador <i class='fas fa-address-card' style='font-size:24px'></i></h:commandLink>
-        <h:commandLink>Cerrar Sesion <i class="fa fa-window-close" style="font-size:24px"></i></h:commandLink>
-
-
+        <h:commandLink onclick="#{productoBean.deleteCookie()}">Cerrar Sesion  <i class="fa fa-window-close" style="font-size:24px"></i></h:commandLink>
+        <h:outputLabel value="#{productoBean.cookie}"/>
     </div>
 
 

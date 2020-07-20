@@ -3,5 +3,36 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-  
+
+
+    <navigation-rule>
+        <from-view-id>/index.html</from-view-id>
+        <navigation-case>
+            <to-view-id>/public/paginaCatalogo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/public/paginaCatalogo.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/public/paginaLogeo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/public/paginaLogeo.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/private/paginaAdministrador.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/private/paginaEmpleado.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/private/paginaAdministrador.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/private/paginaBodegas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/private/paginaProductos.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
