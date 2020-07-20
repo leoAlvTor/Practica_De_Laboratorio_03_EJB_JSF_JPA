@@ -1,7 +1,9 @@
 <component name="libraryTable">
   <library name="Mojarra-2.3.8" type="jsf">
     <properties version="2.3.8" />
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javax.faces-2.3.8.jar!/" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES />
   </library>

@@ -6,6 +6,8 @@ import ec.edu.ups.ejb.*;
 import ec.edu.ups.entidad.*;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -13,6 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.annotation.FacesConfig;
 import javax.faces.component.UIOutput;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -47,7 +51,7 @@ public class CatalogoBean implements Serializable{
     private String bodegaSeleccionada;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         mapaCodigoNombreProducto = new HashMap<>();
         mapaCodigoProducto = new HashMap<>();
         productosList = productoFacade.findAll();

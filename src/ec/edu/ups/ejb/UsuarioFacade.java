@@ -23,7 +23,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Predicate predicate1= criteriaBuilder.equal(usuarioRoot.get("password"),password);
         Predicate validaciones= criteriaBuilder.and(predicate,predicate1);
         criteriaQuery.select(usuarioRoot).where(validaciones);
-        return entityManager.createQuery(criteriaQuery).getSingleResult();
+        try {
+            return entityManager.createQuery(criteriaQuery).getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package ec.edu.ups.entidad;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,7 @@ public class Usuario implements Serializable {
     @ManyToOne
     private Rol rol;
 
+
     public Usuario(){}
 
     public Usuario(String correo, String password, Rol rol) {
@@ -22,8 +24,9 @@ public class Usuario implements Serializable {
         this.rol = rol;
     }
 
-    public Usuario(String cedula, String nombre, String apellido, String direccion, String telefono, String correo, String password, Rol rol) {
+    public Usuario(String cedula, String nombre, String apellido, String direccion, String telefono, String correo, String password, Rol rol, List<FacturaCabecera> facturaCabeceras) {
         super();
+
         this.correo = correo;
         this.password = password;
         this.rol = rol;
@@ -53,6 +56,8 @@ public class Usuario implements Serializable {
         this.rol = rol;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,7 +78,7 @@ public class Usuario implements Serializable {
                 ", correo='" + correo + '\'' +
                 ", password='" + password + '\'' +
                 ", rol=" + rol +
-                '}';
+                "} " + super.toString();
     }
 }
 

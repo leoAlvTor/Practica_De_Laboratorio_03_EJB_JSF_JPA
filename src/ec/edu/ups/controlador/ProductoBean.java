@@ -10,8 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +64,28 @@ public class ProductoBean implements Serializable {
         list=ejbCategoriaFacade.findAll();
         bodegas= ejbBodegaFacade.findAll();
         productos= ejbProductoFacade.findAll();
-
+        verificarLogeo(verificarCookie());
     }
 
-    public boolean isDisabled() {
+    private String verificarLogeo(boolean cookieExists){
+        if(!cookieExists)
+            return "/public/paginaLogeo";
+        else
+            return "";
+    }
+
+    private boolean verificarCookie(){
+        try {
+            Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("cookie_session");
+            String name = URLDecoder.decode(cookie.getName(), "UTF-8");
+            String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            return !value.equals("") && name.equals("session");
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+     public boolean isDisabled() {
         return disabled;
     }
 
