@@ -29,6 +29,9 @@ public class Provincia implements Serializable {
         /*this.listaCiudades = listaCiudades;*/
     }
 
+    public Provincia(String codigo, String nombre, Pais pais, Object o) {
+    }
+
     public String getCodigo() {
         return codigo;
     }

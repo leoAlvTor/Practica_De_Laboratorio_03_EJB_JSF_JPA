@@ -56,11 +56,10 @@ public class BodegaBean implements Serializable {
     }
 
 
-  /*  @PostConstruct
+    @PostConstruct
     public void init(){
         this.bodegas=this.ejbBodegaFacade.findAll();
-
-    }*/
+    }
 
     public Bodega[] getBodegas() {
         return bodegas.toArray(new Bodega[0]);

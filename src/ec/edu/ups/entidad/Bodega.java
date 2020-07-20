@@ -1,7 +1,9 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,22 +18,34 @@ public class Bodega implements Serializable {
     @ManyToOne
     private Ciudad ciudad;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "bodegasList")
+    @JsonbTransient
+    @ManyToMany(mappedBy = "bodegasList")
+    @JoinColumn
     private List<Producto> productosList;
     @Transient
     private boolean editable;
 
+    //@JsonbTransient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bodega")
+    private List<Stock> lista_stock;
 
+    public Bodega(){
+        productosList= new ArrayList<Producto>();
+    }
 
-    public Bodega(){}
-
-    public Bodega( String nombre,Ciudad ciudad) {
+    public Bodega( String nombre, Ciudad ciudad) {
         this.nombre = nombre;
         this.ciudad = ciudad;
-        /*
-        this.codigo = codigo;
-        this.productosList = productosList;*/
+        productosList = new ArrayList<Producto>();
+        lista_stock= new ArrayList<Stock>();
+    }
 
+    public List<Stock> getLista_stock() {
+        return lista_stock;
+    }
+
+    public void setLista_stock(List<Stock> lista_stock) {
+        this.lista_stock = lista_stock;
     }
 
     public int getCodigo() {
@@ -70,14 +84,8 @@ public class Bodega implements Serializable {
         return this.productosList.add(producto);
     }
 
-
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
+    public boolean addStock(Stock stock){
+        return this.lista_stock.add(stock);
     }
 
     @Override
@@ -88,9 +96,23 @@ public class Bodega implements Serializable {
         return codigo == bodega.codigo;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
+    public static List<Bodega> serializeBodegas(List<Bodega> bodegas){
+        List<Bodega> bodegaList = new ArrayList<>();
+        bodegas.forEach(
+                bodega -> {
+                    Pais pais = bodega.getCiudad().getProvincia().getPais();
+                    pais = new Pais(pais.getCodigo(), pais.getNombre());
+
+                    Provincia provincia = bodega.getCiudad().getProvincia();
+                    provincia = new Provincia(provincia.getCodigo(), provincia.getNombre(), pais, null);
+
+                    bodega.setCiudad(new Ciudad(bodega.getCiudad().getCodigo(), bodega.getCiudad().getNombre(), provincia, null));
+                    bodega.setProductosList(null);
+                    bodega.setLista_stock(null);
+                    bodegaList.add(bodega);
+                }
+        );
+        return bodegaList;
     }
 
     @Override
@@ -100,6 +122,20 @@ public class Bodega implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", ciudad=" + ciudad +
                 ", productosList=" + productosList +
+                ", lista_stock=" + lista_stock +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }

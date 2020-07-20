@@ -29,9 +29,7 @@ public class FacturaCabecera implements Serializable {
     private Pedido pedido;
     @ManyToOne
     private Persona persona;
-    //PEDIDOS
-    @OneToOne
-    private Pedido pedido;
+
 
     public FacturaCabecera(){}
 

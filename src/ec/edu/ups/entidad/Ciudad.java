@@ -30,6 +30,13 @@ public class Ciudad implements Serializable {
         /*this.listaBodeas = listaBodeas;*/
     }
 
+    public Ciudad(String codigo, String nombre, Provincia provincia, List<Bodega> listaBodeas) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.provincia = provincia;
+        this.listaBodeas = listaBodeas;
+    }
+
     public String getCodigo() {
         return codigo;
     }

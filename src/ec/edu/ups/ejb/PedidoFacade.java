@@ -51,6 +51,5 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
         return pedidoList.get(pedidoList.size()-1);
 
     }
-=======
->>>>>>> origin/pedro
+
 }
