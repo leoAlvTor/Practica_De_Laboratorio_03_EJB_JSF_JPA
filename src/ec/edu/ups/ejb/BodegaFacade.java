@@ -1,6 +1,7 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Bodega;
+import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,7 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 @Stateless
-public class BodegaFacade extends AbstractFacade<Bodega> {
+public class BodegaFacade extends AbstractFacade<Bodega>{
 
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
@@ -32,8 +33,12 @@ public class BodegaFacade extends AbstractFacade<Bodega> {
     }
 
     @Override
-    protected EntityManager getEntityManager(){
+    protected  EntityManager getEntityManager(){
         return entityManager;
     }
+
+
+
+
 
 }

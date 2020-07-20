@@ -23,11 +23,11 @@ public class Ciudad implements Serializable {
 
     }
 
-    public Ciudad(String codigo, String nombre, Provincia provincia, List<Bodega> listaBodeas) {
+    public Ciudad(String codigo, String nombre, Provincia provincia) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.provincia = provincia;
-        this.listaBodeas = listaBodeas;
+        /*this.listaBodeas = listaBodeas;*/
     }
 
     public String getCodigo() {
@@ -61,6 +61,8 @@ public class Ciudad implements Serializable {
     public void setListaBodeas(List<Bodega> listaBodeas) {
         this.listaBodeas = listaBodeas;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

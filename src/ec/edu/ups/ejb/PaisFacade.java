@@ -1,6 +1,7 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Pais;
+import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,7 +17,14 @@ public class PaisFacade extends AbstractFacade<Pais> {
     }
 
     @Override
-    protected EntityManager getEntityManager(){
+    protected  EntityManager getEntityManager(){
         return entityManager;
+    }
+
+
+
+    public Pais findPais(String nombre){
+        String query=" SELECT p FROM Pais p WHERE p.nombre= '"+nombre+"';";
+        return (Pais) getEntityManager().createQuery(query).getSingleResult();
     }
 }

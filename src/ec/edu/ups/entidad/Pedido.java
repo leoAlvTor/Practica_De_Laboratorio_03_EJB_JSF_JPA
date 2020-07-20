@@ -16,6 +16,8 @@ public class Pedido implements Serializable {
     private Persona persona;
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "pedido")
     private FacturaCabecera facturaCabecera;
+    @Transient
+    private boolean editable;
 
     public Pedido() {
 
