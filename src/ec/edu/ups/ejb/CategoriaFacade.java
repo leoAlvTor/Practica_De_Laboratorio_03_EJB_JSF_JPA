@@ -1,7 +1,6 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Categoria;
-import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,7 +12,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
-public class CategoriaFacade extends AbstractFacade<Categoria>{
+public class CategoriaFacade extends AbstractFacade<Categoria> {
 
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
@@ -33,7 +32,7 @@ public class CategoriaFacade extends AbstractFacade<Categoria>{
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 

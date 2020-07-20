@@ -9,7 +9,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 @Path("/pedido/")
 public class PedidoResource {
@@ -25,6 +28,76 @@ public class PedidoResource {
     FacturaCabeceraFacade facturaCabeceraFacade;
     @EJB
     FacturaDetalleFacade facturaDetalleFacade;
+
+    //SCORPION CODE START
+    @POST
+    @Path("crearpedido")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response crearPedido(@FormParam("producto_Id") String productoid,@FormParam("cedula_Id") String cedulaid,@FormParam("cantidad") String cantidad) throws Exception {
+        System.out.println("producto "+ productoid);
+        System.out.println("cedula "+ cedulaid);
+        System.out.println("cantidad "+ cantidad);
+        GregorianCalendar cal = getCurrentDate();
+        Persona persona =personaFacade.searchPerson(cedulaid);
+        int cant= Integer.parseInt(cantidad);
+        try{
+            System.out.println("PEDIDO EN PROCESO");
+            Pedido pedido =pedidoFacade.getCurrentPedido(persona);
+            FacturaCabecera facturacab= facturaCabeceraFacade.getPedidoFacturaCabecera(pedido);
+            Producto producto = productoFacade.buscarProductoPorCodigo(productoid);
+            double total_producto=producto.getPrecioVenta()*cant;
+            FacturaDetalle facturaDetalle = new FacturaDetalle(cant,total_producto,facturacab,producto);
+            facturaDetalleFacade.create(facturaDetalle);
+        }catch (Exception e){
+            System.out.println("IT's MY FIRST ORDER");
+            Pedido ped = new Pedido("EN_PROCESO",cal,persona,null);
+            FacturaCabecera facturaCabecera = new FacturaCabecera(cal, 'N', 0, 0, 0, 0, null, persona, ped);
+            pedidoFacade.create(ped);
+            ped.setFacturaCabecera(facturaCabecera);
+            facturaCabeceraFacade.create(facturaCabecera);
+            pedidoFacade.edit(ped);
+            FacturaCabecera facturacab= facturaCabeceraFacade.getPedidoFacturaCabecera(ped);
+            Producto producto = productoFacade.buscarProductoPorCodigo(productoid);
+            double total_producto=producto.getPrecioVenta()*cant;
+            FacturaDetalle facturaDetalle = new FacturaDetalle(cant,total_producto,facturacab,producto);
+            facturaDetalleFacade.create(facturaDetalle);
+        }
+
+        return Response.ok("OK!" + productoid + " <--> " + cedulaid)
+                .header("Access-Control-Allow-Origins", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .build();
+    }
+
+
+    @POST
+    @Path("confirmpedido")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response confirmPedido(@FormParam("cedula_Id") String cedulaid) throws Exception {
+        System.out.println("pedido a confirmar cedula "+ cedulaid);
+        Persona persona= personaFacade.searchPerson(cedulaid);
+        System.out.println("ped---");
+        GregorianCalendar cal = getCurrentDate();
+        System.out.println("ped--111");
+        Pedido pedido = new Pedido("EN_PROCESO",cal,persona,null);
+        FacturaCabecera facturaCabecera = new FacturaCabecera(cal, 'N', 0, 0, 0, 0, null, persona, pedido);
+        pedidoFacade.create(pedido);
+        pedido.setFacturaCabecera(facturaCabecera);
+        facturaCabeceraFacade.create(facturaCabecera);
+        pedidoFacade.edit(pedido);
+        return Response.ok("OK!" + cedulaid + " <-->Factura CREADA Y PEDIDO NEW " )
+                .header("Access-Control-Allow-Origins", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .build();
+
+    }
+
+
+    //SCORPION CODE ENDS
 
     @POST
     @Path("/create")

@@ -21,7 +21,7 @@ public class FacturaDetalle implements Serializable {
 
     public FacturaDetalle(){}
 
-    public FacturaDetalle( int cantidad, double total, FacturaCabecera facturaCabecera, Producto producto) {
+    public FacturaDetalle(int cantidad, double total, FacturaCabecera facturaCabecera, Producto producto) {
 
         this.cantidad = cantidad;
         this.total = total;

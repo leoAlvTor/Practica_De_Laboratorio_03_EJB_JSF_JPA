@@ -4,8 +4,6 @@ import ec.edu.ups.ejb.PersonaFacade;
 import ec.edu.ups.entidad.Persona;
 
 import javax.ejb.EJB;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -75,8 +73,8 @@ public class UsuarioResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response update(@FormParam("cedula") String cedula, @FormParam("nombre") String nombre,
-                             @FormParam("apellido") String apellido, @FormParam("direccion") String direccion, @FormParam("telefono") String telefono,
-                             @FormParam("correo") String correo, @FormParam("password") String password){
+                           @FormParam("apellido") String apellido, @FormParam("direccion") String direccion, @FormParam("telefono") String telefono,
+                           @FormParam("correo") String correo, @FormParam("password") String password){
 
         try{
             Persona persona = personaFacade.find(cedula);

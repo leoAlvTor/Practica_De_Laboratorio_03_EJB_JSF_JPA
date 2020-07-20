@@ -16,7 +16,7 @@ public class FacturaDetalleFacade extends AbstractFacade<FacturaDetalle> {
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 }

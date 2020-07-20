@@ -4,7 +4,10 @@ import ec.edu.ups.ejb.BodegaFacade;
 import ec.edu.ups.ejb.CategoriaFacade;
 import ec.edu.ups.ejb.ProductoFacade;
 import ec.edu.ups.ejb.StockFacade;
-import ec.edu.ups.entidad.*;
+import ec.edu.ups.entidad.Bodega;
+import ec.edu.ups.entidad.Categoria;
+import ec.edu.ups.entidad.Producto;
+import ec.edu.ups.entidad.Stock;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,7 +18,9 @@ import javax.inject.Named;
 import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
@@ -52,6 +57,7 @@ public class ProductoBean implements Serializable {
     private boolean disabled=true;
     @EJB
     private StockFacade ejbStockFacade;
+    private String cookie;
 
 
 
@@ -64,28 +70,10 @@ public class ProductoBean implements Serializable {
         list=ejbCategoriaFacade.findAll();
         bodegas= ejbBodegaFacade.findAll();
         productos= ejbProductoFacade.findAll();
-        verificarLogeo(verificarCookie());
+
     }
 
-    private String verificarLogeo(boolean cookieExists){
-        if(!cookieExists)
-            return "/public/paginaLogeo";
-        else
-            return "";
-    }
-
-    private boolean verificarCookie(){
-        try {
-            Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("cookie_session");
-            String name = URLDecoder.decode(cookie.getName(), "UTF-8");
-            String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
-            return !value.equals("") && name.equals("session");
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-     public boolean isDisabled() {
+    public boolean isDisabled() {
         return disabled;
     }
 
@@ -101,6 +89,7 @@ public class ProductoBean implements Serializable {
         this.bodega_inventario = bodega_inventario;
         this.disabled=false;
     }
+
 
     public List<String> getBodegas_stock() {
         return bodegas_stock;
@@ -299,10 +288,22 @@ public class ProductoBean implements Serializable {
             return productos_null;
 
         }
-
-
-
     }
+    public String getCookie() {
+        try {
+            Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("session");
 
+            String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
+            return "Valor cookie: " + value;
+        }catch (Exception e){
+            e.printStackTrace();
+            return "No existe la cookie!";
+        }
+    }
+//FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "paginaBodegas.xhtml")
 
+    public void deleteCookie(){
+        FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("session", "", new HashMap<String, Object>());
+        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "../public/logIn.xhtml");
+    }
 }

@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 @Stateless
-public class PedidoFacade extends AbstractFacade<Pedido>{
+public class PedidoFacade extends AbstractFacade<Pedido> {
 
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
@@ -37,5 +37,18 @@ public class PedidoFacade extends AbstractFacade<Pedido>{
         List<Pedido> pedidoList = entityManager.createQuery(criteriaQuery).getResultList();
 
         return pedidoList.get(pedidoList.size()-1);
+    }
+    //SCORPION CODE
+
+    public Pedido getCurrentPedido(Persona persona){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+        Predicate predicatePersona = criteriaBuilder.equal(pedidoRoot.get("persona"), persona);
+        Predicate[] predicates = new Predicate[]{predicatePersona};
+        criteriaQuery.select(pedidoRoot).where(predicates);
+        List<Pedido> pedidoList = entityManager.createQuery(criteriaQuery).getResultList();
+        return pedidoList.get(pedidoList.size()-1);
+
     }
 }

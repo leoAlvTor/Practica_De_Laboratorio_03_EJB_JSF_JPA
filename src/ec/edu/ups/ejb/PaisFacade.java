@@ -16,7 +16,7 @@ public class PaisFacade extends AbstractFacade<Pais> {
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 }

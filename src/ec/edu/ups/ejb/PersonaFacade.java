@@ -1,7 +1,6 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Persona;
-import ec.edu.ups.entidad.Usuario;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,10 +9,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Optional;
 
 @Stateless
-public class PersonaFacade extends AbstractFacade<Persona>{
+public class PersonaFacade extends AbstractFacade<Persona> {
     @PersistenceContext(unitName = "Practica03.EJB.JSF.JPA")
     private EntityManager entityManager;
 
@@ -22,7 +20,7 @@ public class PersonaFacade extends AbstractFacade<Persona>{
     }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 
@@ -44,6 +42,15 @@ public class PersonaFacade extends AbstractFacade<Persona>{
         }catch (Exception e){
             return false;
         }
+    }
+
+    public Persona searchPerson(String cedula){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Persona> usuarioCriteriaQuery = criteriaBuilder.createQuery(Persona.class);
+        Root<Persona> usuarioRoot = usuarioCriteriaQuery.from(Persona.class);
+        Predicate predicate= criteriaBuilder.equal(usuarioRoot.get("cedula"),cedula);
+        usuarioCriteriaQuery.select(usuarioRoot).where(predicate);
+        return entityManager.createQuery(usuarioCriteriaQuery).getSingleResult();
     }
 
 }

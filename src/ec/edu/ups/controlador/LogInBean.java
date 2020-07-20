@@ -66,6 +66,8 @@ public class LogInBean implements Serializable {
             return "El atributo es nulo";
         }else{
             createCookie(user.getCorreo());
+            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/private/paginaAdministrador.xhtml");
+
         }
         return "";
     }
@@ -78,8 +80,10 @@ public class LogInBean implements Serializable {
         properties.put("path", "/");
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            System.out.println("Se creo la cookie");
             externalContext.addResponseCookie(name, URLEncoder.encode(value, "UTF-8"), properties);
         }catch (Exception e){
+            System.out.println("Algo salio mal Cookie");
             e.printStackTrace();
         }
     }

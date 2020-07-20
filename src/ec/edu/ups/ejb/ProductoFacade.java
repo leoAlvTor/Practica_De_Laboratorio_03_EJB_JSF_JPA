@@ -1,12 +1,9 @@
 package ec.edu.ups.ejb;
 
 import ec.edu.ups.entidad.Categoria;
-
-
 import ec.edu.ups.entidad.Producto;
 
 import javax.ejb.Stateless;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,11 +11,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.String.*;
+import static java.lang.String.valueOf;
 
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {
@@ -50,9 +46,17 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
+    public Producto buscarProductoPorCodigo(String id){
+        CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteriaQuery= criteriaBuilder.createQuery(Producto.class);
+        Root<Producto> categoriaRoot= criteriaQuery.from(Producto.class);
+        Predicate predicate= criteriaBuilder.equal(categoriaRoot.get("codigo"),id);
+        criteriaQuery.select(categoriaRoot).where(predicate);
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
 
     @Override
-    protected  EntityManager getEntityManager(){
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 
