@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.TimeZone;
 
 @Entity
 public class FacturaCabecera implements Serializable {
@@ -32,7 +33,10 @@ public class FacturaCabecera implements Serializable {
     @OneToOne
     private Pedido pedido;
 
-    public FacturaCabecera(){}
+
+    public FacturaCabecera(){
+
+    }
 
     public FacturaCabecera(GregorianCalendar fecha, char anulado, double descuento, double subtotal, double iva_total, double total, Persona persona) {
         this.codigo = codigo;
@@ -67,7 +71,7 @@ public class FacturaCabecera implements Serializable {
         this.codigo = codigo;
     }
 
-    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    @JsonbDateFormat(value = "yyyy-MM-dd")
     public GregorianCalendar getFecha() {
         return fecha;
     }
@@ -114,14 +118,6 @@ public class FacturaCabecera implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
     }
 
     public List<FacturaDetalle> getListaFacturasDetalles() {
@@ -173,14 +169,10 @@ public class FacturaCabecera implements Serializable {
     public String toString() {
         return "FacturaCabecera{" +
                 "codigo=" + codigo +
-                ", fecha=" + fecha +
                 ", anulado=" + anulado +
-                ", descuento=" + descuento +
-                ", subtotal=" + subtotal +
-                ", iva_total=" + iva_total +
-                ", total=" + total +
                 ", listaFacturasDetalles=" + listaFacturasDetalles +
                 ", persona=" + persona +
+                ", pedido=" + pedido +
                 '}';
     }
 }

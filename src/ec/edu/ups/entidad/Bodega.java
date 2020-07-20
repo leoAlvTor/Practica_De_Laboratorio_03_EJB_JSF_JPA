@@ -97,11 +97,11 @@ public class Bodega implements Serializable {
 
     public static List<Bodega> serializeBodegas(List<Bodega> bodegas){
         List<Bodega> bodegaList = new ArrayList<>();
-
         bodegas.forEach(
                 bodega -> {
                     Pais pais = bodega.getCiudad().getProvincia().getPais();
                     pais = new Pais(pais.getCodigo(), pais.getNombre());
+
                     Provincia provincia = bodega.getCiudad().getProvincia();
                     provincia = new Provincia(provincia.getCodigo(), provincia.getNombre(), pais, null);
 

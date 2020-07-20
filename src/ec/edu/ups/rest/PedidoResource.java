@@ -91,30 +91,28 @@ public class PedidoResource {
         return calendar;
     }
 
-    @GET
+    @POST
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPedidos(){
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 
-                Jsonb jsonb = JsonbBuilder.create();
-                List<Pedido> pedidoList = pedidoFacade.findAll();
+    public Response getPedidos(@FormParam("persona_id") String personaId){
 
-                System.out.println("Estos son todos los pedidos" + pedidoList);
-                System.out.println(jsonb.toJson(pedidoList));
+        Jsonb jsonb = JsonbBuilder.create();
+        Persona  persona = personaFacade.find(personaId);
+        List<Pedido> pedidoList = pedidoFacade.findByPedidosId(persona);
 
-                pedidoList = Pedido.serializePedidos(pedidoList);
-                pedidoList.forEach(System.out::println);
+        try{
+            List<Pedido> pedidos = Pedido.serializePedidos(pedidoList);
+        return Response.ok(jsonb.toJson(pedidos))
+                .header("Access-Control-Allow-Origins", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .build();
+    }catch (Exception e){
+        return Response.status(Response.Status.BAD_REQUEST).entity("Error al obtener las bodegas ->" + e.getMessage()).build();
+    }
 
-
-                return Response.ok(jsonb.toJson(pedidoList))
-                        .header("Access-Control-Allow-Origins", "*")
-                        .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                        .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-                        .build();
-
-
-
-                //return Response.status(Response.Status.BAD_REQUEST).entity("Error al obtener los pedidos ->" + e.getMessage()).build();
 
 
 

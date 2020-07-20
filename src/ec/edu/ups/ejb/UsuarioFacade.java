@@ -26,7 +26,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 
-
     @Override
     protected  EntityManager getEntityManager(){
         return entityManager;

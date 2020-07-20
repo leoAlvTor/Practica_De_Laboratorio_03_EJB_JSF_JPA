@@ -25,6 +25,7 @@ public class BodegaResource {
         try{
             Jsonb jsonb = JsonbBuilder.create();
             List<Bodega> bodegaList = bodegaFacade.findAll();
+
             bodegaList = Bodega.serializeBodegas(bodegaList);
             bodegaList.forEach(System.out::println);
 
