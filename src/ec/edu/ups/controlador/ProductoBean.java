@@ -304,6 +304,6 @@ public class ProductoBean implements Serializable {
 
     public void deleteCookie(){
         FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("session", "", new HashMap<String, Object>());
-        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "../public/logIn.xhtml");
+        //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "../public/logIn.xhtml");
     }
 }
