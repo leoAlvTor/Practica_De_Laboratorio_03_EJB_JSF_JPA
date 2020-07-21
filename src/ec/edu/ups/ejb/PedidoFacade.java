@@ -51,4 +51,15 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
 
     }
 
+    public List<Pedido> findByPedidosId(Persona persona) {
+        // TODO Auto-generated method stub
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> pedidoRoot = criteriaQuery.from(Pedido.class);
+        Predicate predicatePersona = criteriaBuilder.equal(pedidoRoot.get("persona"), persona);
+        criteriaQuery.select(pedidoRoot).where(predicatePersona);
+        return entityManager.createQuery(criteriaQuery).getResultList();
+
+    }
+
 }

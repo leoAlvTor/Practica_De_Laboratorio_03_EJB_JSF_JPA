@@ -1,8 +1,11 @@
 package ec.edu.ups.entidad;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -46,6 +49,7 @@ public class Pedido implements Serializable {
         this.estado = estado;
     }
 
+    @JsonbDateFormat(value = "yyyy-MM-dd HH:mm:ss")
     public GregorianCalendar getFecha_emision() {
         return fecha_emision;
     }
@@ -100,5 +104,29 @@ public class Pedido implements Serializable {
                 ", persona=" + persona +
                 ", facturaCabecera=" + facturaCabecera +
                 '}';
+    }
+
+    public static List<Pedido> serializePedidos(List<Pedido> pedidos){
+        List<Pedido> pedidoList = new ArrayList<>();
+
+        pedidos.forEach(
+                pedido -> {
+                    int codigo = pedido.getCodigo();
+                    Persona persona = pedido.getPersona();
+
+                    persona.setFacturasCabeceraList(null);
+                    persona.setPedidos(null);
+
+                    String estado = pedido.getEstado();
+
+                    pedido.setPersona(persona);
+                    pedido.setCodigo(codigo);
+                    pedido.setEstado(estado);
+                    pedido.setFecha_emision(pedido.getFecha_emision());
+                    pedido.setFacturaCabecera(null);
+                    pedidoList.add(pedido);
+                }
+        );
+        return pedidoList;
     }
 }

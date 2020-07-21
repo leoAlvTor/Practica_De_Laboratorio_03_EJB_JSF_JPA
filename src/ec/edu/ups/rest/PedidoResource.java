@@ -4,6 +4,8 @@ import ec.edu.ups.ejb.*;
 import ec.edu.ups.entidad.*;
 
 import javax.ejb.EJB;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -160,6 +162,29 @@ public class PedidoResource {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         return calendar;
+    }
+
+    @POST
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+
+    public Response getPedidos(@FormParam("persona_id") String personaId) {
+
+        Jsonb jsonb = JsonbBuilder.create();
+        Persona persona = personaFacade.find(personaId);
+        List<Pedido> pedidoList = pedidoFacade.findByPedidosId(persona);
+
+        try {
+            List<Pedido> pedidos = Pedido.serializePedidos(pedidoList);
+            return Response.ok(jsonb.toJson(pedidos))
+                    .header("Access-Control-Allow-Origins", "*")
+                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Error al obtener las bodegas ->" + e.getMessage()).build();
+        }
     }
 
 }
