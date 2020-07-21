@@ -15,6 +15,7 @@ import java.util.Map;
 @SessionScoped
 public class AjaxUbiGeo implements Serializable {
 
+    // Este es un comentario
     private static final long serialVersionUID = 1L;
     private String level1, level2, level3;
     private boolean level2ListDisabled = true, level3ListDisabled = true;
