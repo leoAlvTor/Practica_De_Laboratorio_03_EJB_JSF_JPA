@@ -60,28 +60,46 @@ public class LogInBean implements Serializable {
         this.msg = msg;
     }
 
-    public String validateUser(){
-        Usuario user= ejbUsuarioFacade.logIn(correo,password);
+    public  String validateUser(){
+        Usuario user = null;
+        try {
+            user = ejbUsuarioFacade.logIn(correo, password);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if(user == null){
             return "El atributo es nulo";
         }else{
-            createCookie(user.getCorreo());
-            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/private/paginaAdministrador.xhtml");
 
+            try {
+                if(user.getRol().getNombre().toLowerCase().equals("administrador")) {
+                    createCookie(user.getCorreo(), true);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/private/paginaAdministrador.xhtml");
+                }else {
+                    createCookie(user.getCorreo(), false);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/factura.xhtml");
+                }
+            }catch (Exception e){e.printStackTrace();}
         }
         return "";
     }
 
-    private void createCookie(String correo){
-        String name = "session";
+    private void createCookie(String correo, boolean isAdmin){
+        String name;
+        if(isAdmin)
+            name = "administrador";
+        else
+            name = "empleado";
+        System.out.println(correo);
         String value = correo;
         Map<String, Object> properties = new HashMap<>();
-        properties.put("maxAge", 5000);
+        properties.put("maxAge", -1);
         properties.put("path", "/");
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try {
             System.out.println("Se creo la cookie");
-            externalContext.addResponseCookie(name, URLEncoder.encode(value, "UTF-8"), properties);
+            externalContext.addResponseCookie(name, value+"!", properties);
         }catch (Exception e){
             System.out.println("Algo salio mal Cookie");
             e.printStackTrace();

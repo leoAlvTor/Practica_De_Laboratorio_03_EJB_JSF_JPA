@@ -39,7 +39,6 @@ public class PedidoFacade extends AbstractFacade<Pedido> {
         return pedidoList.get(pedidoList.size()-1);
     }
     //SCORPION CODE
-
     public Pedido getCurrentPedido(Persona persona){
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);

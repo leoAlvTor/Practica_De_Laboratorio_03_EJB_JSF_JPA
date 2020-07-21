@@ -62,8 +62,9 @@
                     </h:selectOneMenu>
                 </fieldset>
             </h:form>
-
-            <h:button styleClass="btn btn-primary" value="Iniciar Sesion" style="margin-left: auto; float: right"/>
+            <h:form>
+            <h:commandButton styleClass="btn btn-primary" value="Iniciar Sesion" action="#{catalogoBean.redirect}"  style="margin-left: auto; float: right"/>
+            </h:form>
         </div>
 
         <!-- APARTADO PARA LOS PRODUCTOS -->

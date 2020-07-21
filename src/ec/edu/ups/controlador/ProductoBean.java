@@ -290,20 +290,46 @@ public class ProductoBean implements Serializable {
         }
     }
     public String getCookie() {
-        try {
-            Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("session");
-
-            String value = URLDecoder.decode(cookie.getValue(), "UTF-8");
-            return "Valor cookie: " + value;
-        }catch (Exception e){
-            e.printStackTrace();
-            return "No existe la cookie!";
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("administrador");
+        if(cookie !=null) {
+            String cookieValue = cookie.getValue();
+            System.out.println(cookieValue + "<------");
+            if (cookieValue.isEmpty()) {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/public/logIn.xhtml");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/public/logIn.xhtml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return "Bienvenido!";
     }
 //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "paginaBodegas.xhtml")
 
     public void deleteCookie(){
-        FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("session", "", new HashMap<String, Object>());
-        //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "../public/logIn.xhtml");
+        System.out.println("METHOD CALLED!");
+        FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("administrador", "", null);
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("administrador");
+        if(cookie.getValue().equals("")) System.out.println("Se ha nulificado la cookie de manera correcta!"); else
+            System.out.println("Se ha nulificado el valor correctamente!");
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/public/paginaCatalogo.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void redirectBodegas(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/private/paginaBodegas.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

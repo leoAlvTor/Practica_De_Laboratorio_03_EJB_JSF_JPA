@@ -14,7 +14,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -28,7 +30,7 @@ public class DetalleBean implements Serializable {
     //private static final long serialVersionUID = 1L;
     private Set<Row> list = new HashSet<Row>();
 
-
+    private String cookie;
     private int id;
     private String name;
     private int quantity;
@@ -350,6 +352,52 @@ public class DetalleBean implements Serializable {
         return null;
     }
 
+
+    public String getCookie(){
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("empleado");
+        System.out.println(cookie + "<-->" + cookie.getValue());
+        if(cookie == null){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/public/paginaCatalogo.xhtml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(cookie.getValue().isEmpty())
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/public/logIn.xhtml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return "Bienvenido!";
+    }
+
+    public void redirectPedido(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/private/paginaPedidos.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void anularFacturas(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/listarFacturas.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logout(){
+        FacesContext.getCurrentInstance().getExternalContext().addResponseCookie("empleado", "", null);
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("empleado");
+        if(cookie.getValue().equals("")) System.out.println("Se ha nulificado la cookie de manera correcta!"); else
+            System.out.println("Se ha nulificado el valor correctamente!");
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/public/paginaCatalogo.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

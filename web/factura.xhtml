@@ -42,13 +42,24 @@
     <div>
         <a href="https://www.javaguides.net" class="navbar-brand">Supermercado.com </a>
     </div>
-
+    <h:form>
     <ul class="navbar-nav">
-        <li><a href="/Practica01/Html/index.html" class="nav-link">Facturacion</a></li>
+        <li>
+            <h:commandLink styleClass="nav-link" action="#{detalleBean.redirectPedido}">Pedidos</h:commandLink>
+        </li>
+
+        <li>
+            <h:commandLink styleClass="nav-link" action="#{detalleBean.anularFacturas}">Anular Facturas</h:commandLink>
+        </li>
+
+        <li>
+            <h:commandLink href="/Practica01/Html/index.html" class="nav-link" action="#{detalleBean.logout}">Cerrar Sesion</h:commandLink>
+        </li>
     </ul>
+    </h:form>
 </nav>
 <h:body>
-
+    <h:outputLabel style="display: none" value="#{detalleBean.cookie}"/>
     <div class="container col-md-5">
     <div class="card">
     <div class="card-body">
@@ -65,9 +76,6 @@
         <div class="alert alert-primary" role="alert">
             <h:outputText id="mensaje" value="#{detalleBean.mensaje}"/>
         </div>
-
-
-
         <p> </p>
         <p> </p>
         <h:outputLabel for="salida" value="Nombre:" ></h:outputLabel>

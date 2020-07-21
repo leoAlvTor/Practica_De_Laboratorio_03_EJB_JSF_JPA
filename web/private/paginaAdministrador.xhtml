@@ -29,11 +29,14 @@
         <div class="">
             <div class="navbar-brand"><i class="material-icons" style="font-size:30px;color:red">shopping_cart</i> Tienda Online</div>
         </div>
-        <h:commandLink></h:commandLink>
-        <h:commandLink></h:commandLink>
-        <h:commandLink>Inicio <i class='fab fa-codepen' style='font-size:24px'></i></h:commandLink>
-        <h:commandLink>Administrador <i class='fas fa-address-card' style='font-size:24px'></i></h:commandLink>
-        <h:commandLink onclick="#{productoBean.deleteCookie()}">Cerrar Sesion  <i class="fa fa-window-close" style="font-size:24px"></i></h:commandLink>
+        <h:form>
+            <h:commandLink/>
+            <h:commandLink/>
+            <h:commandLink action="#{productoBean.redirectBodegas}">Administrar Bodegas <i class='fab fa-codepen' style='font-size:24px'/></h:commandLink>
+            <h:commandLink>Pedidos <i class='fas fa-address-card' style='font-size:24px'/></h:commandLink>
+
+            <h:commandLink action="#{productoBean.deleteCookie}">Cerrar Sesion  <i class="fa fa-window-close" style="font-size:24px"/></h:commandLink>
+        </h:form>
         <h:outputLabel value="#{productoBean.cookie}"/>
     </div>
 

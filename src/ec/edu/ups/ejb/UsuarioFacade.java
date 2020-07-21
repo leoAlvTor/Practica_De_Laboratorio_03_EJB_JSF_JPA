@@ -21,7 +21,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
 
 
-    public Usuario logIn(String correo, String password){
+    public synchronized Usuario logIn(String correo, String password){
         CriteriaBuilder criteriaBuilder= entityManager.getCriteriaBuilder();
         CriteriaQuery<Usuario> criteriaQuery= criteriaBuilder.createQuery(Usuario.class);
         Root<Usuario> usuarioRoot= criteriaQuery.from(Usuario.class);

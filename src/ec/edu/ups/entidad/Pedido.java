@@ -70,6 +70,14 @@ public class Pedido implements Serializable {
         this.facturaCabecera = facturaCabecera;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

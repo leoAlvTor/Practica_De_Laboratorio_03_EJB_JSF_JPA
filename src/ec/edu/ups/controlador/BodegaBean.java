@@ -17,6 +17,7 @@ import javax.faces.annotation.FacesConfig;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.management.openmbean.OpenMBeanConstructorInfoSupport;
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class BodegaBean implements Serializable {
     private String nombreBodega;
     private int idBodega;
     private Bodega bodega;
+    private String cookie;
 
 
     /*ADICION*/
@@ -372,5 +374,24 @@ public class BodegaBean implements Serializable {
         this.idBodega = idBodega;
     }
 
+    public String getCookie(){
+        Cookie cookie = (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get("administrador");
+        if(cookie == null || cookie.getValue().equals("")){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/public/paginaCatalogo.xhtml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "Bienvenido!";
+    }
+
+    public void regresar(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/private/paginaAdministrador.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

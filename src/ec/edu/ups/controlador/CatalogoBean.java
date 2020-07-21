@@ -135,4 +135,13 @@ public class CatalogoBean implements Serializable{
         filtrado.forEach(e ->{mapaCodigoNombreProducto.put(String.valueOf(e.getCodigo()), e.getNombre()); });
         return mapaCodigoNombreProducto.isEmpty() ? new HashMap<>() : mapaCodigoNombreProducto;
     }
+
+    public void redirect(){
+        System.out.println("LEO");
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/public/logIn.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
