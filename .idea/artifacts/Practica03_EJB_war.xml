@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Practica03_EJB:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Practica03_EJB</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Practica03-1.0.war">
+      <element id="artifact" artifact-name="Practica03_EJB:war exploded" />
+    </root>
+  </artifact>
+</component>

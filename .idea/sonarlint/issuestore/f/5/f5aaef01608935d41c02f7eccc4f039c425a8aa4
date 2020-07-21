@@ -1,0 +1,85 @@
+
+Z
+java:S1120"DMake this line start after 2 spaces to indent the code consistently.(‘Îê
+Z
+java:S11203"DMake this line start after 4 spaces to indent the code consistently.(÷ã´½
+Z
+java:S1120%"DMake this line start after 4 spaces to indent the code consistently.(ï¾²
+Q
+java:S1128";Remove this unused import 'javax.annotation.PostConstruct'.(›ÅÁ
+W
+java:S1106("AMove this left curly brace to the beginning of next line of code.(àï×ü
+\
+java:S1106-"AMove this left curly brace to the beginning of next line of code.(¼êÉ‡ıÿÿÿÿ
+_
+java:S1120<"DMake this line start after 4 spaces to indent the code consistently.(ˆ —éşÿÿÿÿ
+^
+java:S1106A"AMove this left curly brace to the beginning of next line of code.(ºá8ÿ”†¦¶.
+H
+java:S2325I"&Make "createCookie" a "static" method.(ß™“¬üÿÿÿÿ8 ë‡¦¶.
+a
+java:S1120X"DMake this line start after 4 spaces to indent the code consistently.(´·û¢8Ş¼£¤¶.
+
+java:S1488Y"]Immediately return this expression instead of assigning it to the temporary variable "value".(»¹ìÿÿÿÿÿ8ËûÖ¤¶.
+v	java:S109M"UAssign this magic number 5000 to a well-named constant, and use the constant instead.(è÷¢¯ÿÿÿÿÿ8¥¾¦¶.
+a
+java:S1120Q"DMake this line start after 6 spaces to indent the code consistently.(åª˜–8‰š¦¶.
+V
+java:S1106"AMove this left curly brace to the beginning of next line of code.(³ˆ‘K
+W
+java:S11067"AMove this left curly brace to the beginning of next line of code.(¸üÙ
+c
+java:S1106W"AMove this left curly brace to the beginning of next line of code.(…ä¢·ıÿÿÿÿ8§ë›¤¶.
+c
+java:S1106P"AMove this left curly brace to the beginning of next line of code.(¡»¢üùÿÿÿÿ8‰š¦¶.
+_
+java:S1120)"DMake this line start after 4 spaces to indent the code consistently.(•½ê¡ûÿÿÿÿ
+5
+java:S4926"Remove this "serialVersionUID".(‘Îê
+a
+java:S1120B"DMake this line start after 6 spaces to indent the code consistently.(ÉÇ†Ÿ8Œî†¦¶.
+g	java:S103X"KSplit this 132 characters long line (which is greater than 120 authorized).(´·û¢8®ø£¤¶.
+f
+java:S1120S"DMake this line start after 6 spaces to indent the code consistently.(€ÉÔ…ıÿÿÿÿ8‰š¦¶.
+W
+java:S1106?"AMove this left curly brace to the beginning of next line of code.(‡£ö
+f
+java:S1120J"DMake this line start after 4 spaces to indent the code consistently.(®ìú•øÿÿÿÿ8‰š¦¶.
+Z
+java:S1120@"DMake this line start after 4 spaces to indent the code consistently.(Øëÿ™
+N
+java:S1108C"1Move this "else" keyword to a new dedicated line.(å¥‡8Œî†¦¶.
+a
+java:S1120D"DMake this line start after 6 spaces to indent the code consistently.(åÍóæ8ÊËŠ¦¶.
+_
+java:S1120."DMake this line start after 4 spaces to indent the code consistently.(ÆÕëÙúÿÿÿÿ
+c
+java:S1106I"AMove this left curly brace to the beginning of next line of code.(ß™“¬üÿÿÿÿ8 ë‡¦¶.
+W
+java:S1117X":Rename "cookie" which hides the field declared at line 34.(´·û¢8´°Ì¥¶.
+B
+java:S1166R"%Either log or rethrow this exception.(”ı¾8‰š¦¶.
+G
+java:S1068""*Remove this unused "cookie" private field.(ÃÉª×8´°Ì¥¶.
+O
+java:S1108R"2Move this "catch" keyword to a new dedicated line.(”ı¾8‰š¦¶.
+^
+java:S1106C"AMove this left curly brace to the beginning of next line of code.(å¥‡8¡‡‡¦¶.
+W
+java:S1106;"AMove this left curly brace to the beginning of next line of code.(ˆ«×
+O
+java:S1258":Add a constructor to the class, or provide default values.(³ˆ‘K
+^
+java:S1106R"AMove this left curly brace to the beginning of next line of code.(”ı¾8‰š¦¶.
+W
+java:S1106$"AMove this left curly brace to the beginning of next line of code.(Î¤˜‹
+_
+java:S11208"DMake this line start after 4 spaces to indent the code consistently.(ò«Ôüÿÿÿÿ
+V
+java:S11062"AMove this left curly brace to the beginning of next line of code.(ï““<
+4
+java:S1451"&Add or update the header of this file.
+Q
+java:S2221R"4Catch a list of specific exception subtypes instead.(”ı¾8‰š¦¶.
+E
+java:S1148S"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‰š¦¶.

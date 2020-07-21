@@ -1,0 +1,31 @@
+
+W
+java:S1106"AMove this left curly brace to the beginning of next line of code.(ñ§µØ
+W
+java:S1106"AMove this left curly brace to the beginning of next line of code.(àıÂ«
+H
+java:S1108%"2Move this "catch" keyword to a new dedicated line.(”ı¾
+Y
+java:S1120&"DMake this line start after 6 spaces to indent the code consistently.(–“)
+_	java:S103&"KSplit this 131 characters long line (which is greater than 120 authorized).(–“)
+^
+java:S2095"CUse try-with-resources or close this "Jsonb" in a "finally" clause.(¦Ş„ìüÿÿÿÿ
+K
+java:S2039"5Explicitly declare the visibility for "bodegaFacade".(¡åƒ
+\
+java:S1106"AMove this left curly brace to the beginning of next line of code.(¡»¢üùÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¤š…Ë
+4
+java:S1451"&Add or update the header of this file.
+Z
+java:S1120"DMake this line start after 2 spaces to indent the code consistently.(¡åƒ
+_
+java:S1120"DMake this line start after 6 spaces to indent the code consistently.(¦Ş„ìüÿÿÿÿ
+;
+java:S1166%"%Either log or rethrow this exception.(”ı¾
+W
+java:S1106%"AMove this left curly brace to the beginning of next line of code.(”ı¾
+_
+java:S1120"DMake this line start after 4 spaces to indent the code consistently.(¡»¢üùÿÿÿÿ
+J
+java:S2221%"4Catch a list of specific exception subtypes instead.(”ı¾

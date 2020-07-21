@@ -1,0 +1,126 @@
+
+X
+java:S1106€"AMove this left curly brace to the beginning of next line of code.(ğäïá
+Z
+java:S1120M"DMake this line start after 4 spaces to indent the code consistently.(¹ª€ó
+E
+java:S1109n"/Move this closing curly brace to the next line.(ÖçìĞ
+W
+java:S1106|"AMove this left curly brace to the beginning of next line of code.(´’Ö„
+5
+java:S4926"Remove this "serialVersionUID".(‘Îê
+W
+java:S1106j"AMove this left curly brace to the beginning of next line of code.(ğŞœ
+\
+java:S1106D"AMove this left curly brace to the beginning of next line of code.(·£²ıüÿÿÿÿ
+_
+java:S1120A"DMake this line start after 4 spaces to indent the code consistently.(“¢µâøÿÿÿÿ
+_
+java:S1120k"DMake this line start after 4 spaces to indent the code consistently.(ŞŸ¢«ÿÿÿÿÿ
+,
+java:S2211:"Specify a type for: 'e'(æóş
+W
+java:S1106L"AMove this left curly brace to the beginning of next line of code.(şÿŠ
+W
+java:S1106Q"AMove this left curly brace to the beginning of next line of code.(¢ö½Ï
+^
+java:S1774ˆ"GConvert this usage of the ternary operator to an "if"/"else" structure.(ãÊá¿
+Z
+java:S11207"DMake this line start after 4 spaces to indent the code consistently.(ŞÄ’’
+Z
+java:S1120"DMake this line start after 2 spaces to indent the code consistently.(‘Îê
+`
+java:S1120…"DMake this line start after 4 spaces to indent the code consistently.(¡øì¿ıÿÿÿÿ
+M
+java:S1128
+"0Remove this unused import 'java.net.URLEncoder'.(ê¢ºÆ8 Å‹¦¶.
+R
+java:S1449†"6Define the locale to be used in this String operation.(×›ˆ¬üÿÿÿÿ
+V
+java:S1213D";Move this constructor to comply with Java Code Conventions.(·£²ıüÿÿÿÿ
+Z
+java:S1128"=Remove this unused import 'javax.faces.context.FacesContext'.(¸Öœ8 Å‹¦¶.
+Y
+java:S1120B"DMake this line start after 4 spaces to indent the code consistently.(í‹§N
+_
+java:S1120R"DMake this line start after 4 spaces to indent the code consistently.(‘œÊüøÿÿÿÿ
+3
+java:S2211‡"Specify a type for: 'e'(ëôËÔÿÿÿÿÿ
+W
+java:S1106b"AMove this left curly brace to the beginning of next line of code.(ôä¬Ş
+Z
+java:S1120r"DMake this line start after 6 spaces to indent the code consistently.(º¬Ûù
+V
+java:S1106B"AMove this left curly brace to the beginning of next line of code.(í‹§N
+[
+java:S1120t"EMake this line start after 22 spaces to indent the code consistently.(¥•¥ª
+Z
+java:S1120}"DMake this line start after 4 spaces to indent the code consistently.(˜‹ÙÑ
+0
+java:S2211m"Specify a type for: 'value'(×Ï&
+e	java:S103_"KSplit this 134 characters long line (which is greater than 120 authorized).(©óşËüÿÿÿÿ
+^
+java:S1128	"ARemove this unused import 'java.io.UnsupportedEncodingException'.(Ãµ…“8Ü¯Û¤¶.
+S	java:S106x"9Replace this use of System.out or System.err by a logger.(’Öšşÿÿÿÿ
+_
+java:S1120I"DMake this line start after 4 spaces to indent the code consistently.(®ê™øÿÿÿÿ
+_
+java:S1120c"DMake this line start after 4 spaces to indent the code consistently.(¡µ‹çüÿÿÿÿ
+_
+java:S1120["DMake this line start after 4 spaces to indent the code consistently.(©€ßÇøÿÿÿÿ
+\
+java:S1106^"AMove this left curly brace to the beginning of next line of code.(ÎàÈøøÿÿÿÿ
+[
+java:S1120n"EMake this line start after 51 spaces to indent the code consistently.(ÖçìĞ
+\
+java:S1106A"AMove this left curly brace to the beginning of next line of code.(“¢µâøÿÿÿÿ
+I
+java:S2208".Explicitly import the specific classes needed.(‹½ëûûÿÿÿÿ
+Z
+java:S1120E"DMake this line start after 4 spaces to indent the code consistently.(¥‚òä
+4
+java:S1451"&Add or update the header of this file.
+Z
+java:S1120V"DMake this line start after 4 spaces to indent the code consistently.(ıàöù
+A
+java:S1602m",Remove useless curly braces around statement(×Ï&
+_
+java:S1120_"DMake this line start after 4 spaces to indent the code consistently.(©óşËüÿÿÿÿ
+p
+java:S3242H"UUse 'java.util.EventObject' here; it is a more general type than 'AjaxBehaviorEvent'.(’µÓûÿÿÿÿ
+D
+java:S2208".Explicitly import the specific classes needed.(Ş‘ÆÀ
+b
+java:S1128"@Remove this unused import 'javax.faces.context.ExternalContext'.(¢ŸïŞùÿÿÿÿ8 Å‹¦¶.
+2
+java:S2211s"Specify a type for: 'e'(âêİªûÿÿÿÿ
+_
+java:S1120g"DMake this line start after 4 spaces to indent the code consistently.(—ØÛ™ûÿÿÿÿ
+W
+java:S1106U"AMove this left curly brace to the beginning of next line of code.(µĞÒû
+R
+java:S1449†"6Define the locale to be used in this String operation.(×›ˆ¬üÿÿÿÿ
+A
+java:S1602:",Remove useless curly braces around statement(æóş
+\
+java:S1106q"AMove this left curly brace to the beginning of next line of code.(ÓÕ‘Üşÿÿÿÿ
+H
+java:S1602‡",Remove useless curly braces around statement(ëôËÔÿÿÿÿÿ
+W
+java:S1106"AMove this left curly brace to the beginning of next line of code.(ŞÂ¯î
+N	java:S106N"9Replace this use of System.out or System.err by a logger.(õãÈÏ
+f	java:S103†"KSplit this 159 characters long line (which is greater than 120 authorized).(×›ˆ¬üÿÿÿÿ
+W
+java:S1106f"AMove this left curly brace to the beginning of next line of code.(ÔûÀß
+^
+java:S11066"AMove this left curly brace to the beginning of next line of code.( Üó8ŞŠ€¤¶.
+\
+java:S1106Z"AMove this left curly brace to the beginning of next line of code.(–†âÛùÿÿÿÿ
+D
+java:S2208".Explicitly import the specific classes needed.(Î€ŒÙ
+]
+java:S1106„"AMove this left curly brace to the beginning of next line of code.(¸­ºÿÿÿÿÿ
+\
+java:S1106H"AMove this left curly brace to the beginning of next line of code.(’µÓûÿÿÿÿ
+`
+java:S1120"DMake this line start after 4 spaces to indent the code consistently.(‘š’Ãüÿÿÿÿ

@@ -1,0 +1,38 @@
+
+Z
+java:S1120"DMake this line start after 4 spaces to indent the code consistently.(£ÄáØ
+f
+java:S1120"DMake this line start after 6 spaces to indent the code consistently.(Œ«ªæşÿÿÿÿ8àİƒ¦¶.
+c
+java:S1106"AMove this left curly brace to the beginning of next line of code.(¡»¢üùÿÿÿÿ8àİƒ¦¶.
+D
+java:S2208".Explicitly import the specific classes needed.(¬£şç
+a
+java:S1120"DMake this line start after 6 spaces to indent the code consistently.(¥¹ï8àİƒ¦¶.
+_
+java:S1120
+"DMake this line start after 2 spaces to indent the code consistently.(æó¨§ûÿÿÿÿ
+\
+java:S1106"AMove this left curly brace to the beginning of next line of code.(‹ú„Ìûÿÿÿÿ
+_
+java:S1120#"DMake this line start after 4 spaces to indent the code consistently.(·öø–ıÿÿÿÿ
+Z
+java:S1120"DMake this line start after 4 spaces to indent the code consistently.(‚ä 
+\
+java:S1106"AMove this left curly brace to the beginning of next line of code.(Å£üÿÿÿÿ
+B
+java:S1166"%Either log or rethrow this exception.(”ı¾8àİƒ¦¶.
+^
+java:S1106"AMove this left curly brace to the beginning of next line of code.(”ı¾8àİƒ¦¶.
+4
+java:S1451"&Add or update the header of this file.
+I
+java:S2208".Explicitly import the specific classes needed.(ÂÁÖŠûÿÿÿÿ
+\
+java:S1106""AMove this left curly brace to the beginning of next line of code.(âÌèæşÿÿÿÿ
+O
+java:S1108"2Move this "catch" keyword to a new dedicated line.(”ı¾8àİƒ¦¶.
+\
+java:S1106"AMove this left curly brace to the beginning of next line of code.(öª–àşÿÿÿÿ
+Q
+java:S2221"4Catch a list of specific exception subtypes instead.(”ı¾8àİƒ¦¶.
