@@ -1,6 +1,7 @@
 package ec.edu.ups.controlador;
 
 
+import com.sun.scenario.effect.impl.prism.PrImage;
 import ec.edu.ups.ejb.PedidoFacade;
 import ec.edu.ups.entidad.Bodega;
 import ec.edu.ups.entidad.Pedido;
@@ -11,6 +12,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
@@ -19,7 +23,11 @@ import java.util.List;
 public class PedidoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<Pedido> listPedidos;
+    private List<Integer> codigosPedidos;
     private String estadoSelect;
+    private String msj;
+    /*ADICIONADOS*/
+    private List<RowPedido> rowPedidos;
     @EJB
     private PedidoFacade pedidoFacade;
     private  String[] estados={"Receptado", "En proceso", "En camino", "Finalizado"};
@@ -28,8 +36,32 @@ public class PedidoBean implements Serializable {
     }
     @PostConstruct
     public void init(){
+       iniciar();
+    }
+
+    public void iniciar(){
+        listPedidos=new ArrayList<>();
         this.listPedidos=pedidoFacade.findAll();
 
+
+        /*listPedidos.parallelStream().forEach(e->{
+            codigosPedidos.add(e.getCodigo());
+        });
+*/
+        rowPedidos=new ArrayList<>();
+        for (Pedido p:listPedidos) {
+            rowPedidos.add(new RowPedido(p));
+        }
+    }
+
+    public List<Integer> getCodigosPedidos(){
+        return this.codigosPedidos;
+    }
+
+
+    public String formatDate(GregorianCalendar gregorianCalendar){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(gregorianCalendar.getTime());
     }
 
     public String getEstadoSelect() {
@@ -61,8 +93,36 @@ public class PedidoBean implements Serializable {
         return estados;
     }
 
+    public List<RowPedido> getRowPedidos() {
+        return rowPedidos;
+    }
+
+    public void setRowPedidos(List<RowPedido> rowPedidos) {
+        this.rowPedidos = rowPedidos;
+    }
+
     public void setEstados(String[] estados) {
         this.estados = estados;
+    }
+
+    public String getMsj() {
+        return msj;
+    }
+
+    public void setMsj(String msj) {
+        this.msj = msj;
+    }
+
+    public void edit(RowPedido p){
+        Pedido pedido=p.getPedido();
+        pedido.setEstado(p.getEstadoSelect().toUpperCase());
+        pedidoFacade.edit(pedido);
+        mensaje("Pedido Editado Correctamente.");
+        iniciar();
+    }
+
+    public void mensaje(String msj){
+        this.msj=msj;
     }
 
 }

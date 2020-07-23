@@ -18,53 +18,45 @@
 
 </h:head>
 <h:body styleClass="modal-body text-center">
+    <div class="navbar navbar-light bg-light justify-content-between">
+        <p:graphicImage value=""/>
+        <a class="navbar-brand">Pedidos</a>
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Bodegas"/><!--action="bodegas?faces-redirect=true"-->
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: 15px" value="Mi Cuenta"/>
+        <p:commandLink styleClass="btn btn-primary" style="margin-right: auto" value="Mi Perfil"/>
+        <p:commandLink styleClass="btn btn-danger" style="margin-left: auto" value="Cerrar Sesion"/>
+    </div>
     <h3>Pedidos</h3>
+    <h:outputText id="mensaje" value="#{pedidoBean.msj}" />
     <h:form>
-        <h:dataTable value="#{pedidoBean.listPedidos}" var="p"  styleClass="table table-bordered table-hover">
+        <h:dataTable value="#{pedidoBean.rowPedidos}" var="p"  styleClass="table table-bordered table-hover">
             <h:column>
-                <f:facet name="header">Id</f:facet>#{p.codigo}</h:column>
+                <f:facet name="header">Id</f:facet>#{p.pedido.codigo}</h:column>
             <h:column>
                 <f:facet name="header">Estado</f:facet>
-                <h:inputText value="#{p.estado}" size="10" rendered="#{p.editable}" />
-                <h:outputText value="#{p.estado}" rendered="#{not p.editable}" />
+
+                <h:outputText value="#{p.pedido.estado}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Fecha Emision</f:facet>
-                <h:inputText value="#{p.fecha_emision}" size="10"
-                             rendered="#{p.editable}" />
-                <h:outputText value="#{p.fecha_emision}" rendered="#{not p.editable}" />
+
+                <h:outputText value="#{pedidoBean.formatDate(p.pedido.fecha_emision)}"  />
             </h:column>
-            <h:column>
-                <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Delete" action="#{pedidoBean.delete(o)}" />
-            </h:column>
+
             <h:column>
                 <f:facet name="header">Cambiar Estado</f:facet>
-                <h:selectOneMenu value="#{pedidoBean.estadoSelect}" id="idRoles">
-                    <f:selectItems value="#{pedidoBean.estados}" />
-                    <!--<f:ajax render="idRoles" />-->
+                <h:selectOneMenu value="#{p.estadoSelect}" id="idRoles">
+                    <f:selectItems value="#{p.estados}"/>
+
                 </h:selectOneMenu>
             </h:column>
             <h:column>
                 <f:facet name="header">Accion</f:facet>
-                <h:commandLink value="Edit" action="#{pedidoBean.edit(o)}"
-                               rendered="#{not p.editable}" />
-                <h:commandLink value="Save" action="#{pedidoBean.save(o)}"
-                               rendered="#{p.editable}" />
+                <h:commandLink value="Edit" action="#{pedidoBean.edit(p)}"  />
+
             </h:column>
 
-
-
-
         </h:dataTable>
-       <!-- <ul>
-            <li>Id:<h:inputText size="10" value="#{collectionBean.id}" /></li>
-            <li>Nombre:<h:inputText size="10" value="#{collectionBean.name}" /></li>
-            <li>Cantidad:<h:inputText size="10"
-                                      value=" <h:commandButton value="Add" action="#{collectionBean.add}" />#{collectionBean.quantity}" />
-            </li>
-        </ul>-->
-
     </h:form>
 </h:body>
 </html>

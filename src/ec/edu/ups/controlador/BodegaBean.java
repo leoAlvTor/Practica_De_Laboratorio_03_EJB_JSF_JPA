@@ -28,6 +28,9 @@ import java.util.Map;
 @SessionScoped
 public class BodegaBean implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+
+
     @EJB
     private BodegaFacade ejbBodegaFacade;
     @EJB
@@ -56,11 +59,11 @@ public class BodegaBean implements Serializable {
     }
 
 
-  /*  @PostConstruct
+    @PostConstruct
     public void init(){
         this.bodegas=this.ejbBodegaFacade.findAll();
 
-    }*/
+    }
 
     public Bodega[] getBodegas() {
         return bodegas.toArray(new Bodega[0]);
@@ -91,6 +94,7 @@ public class BodegaBean implements Serializable {
         this.level1="---Elige---";
         this.level3="---Elige---";
         this.bodegas=this.ejbBodegaFacade.findAll();
+        mensaje("Bodega Creada.");
         return  null;
     }
     
@@ -138,7 +142,6 @@ public class BodegaBean implements Serializable {
         this.nombreBodega=bodega.getNombre();
         this.idBodega=bodega.getCodigo();
     }
-
     public void actualizarBodega(){
         String [] paisProCiu=this.level3.split("-");
         Pais pais = paisFacade.find("EC");
@@ -371,6 +374,10 @@ public class BodegaBean implements Serializable {
 
     public void setIdBodega(int idBodega) {
         this.idBodega = idBodega;
+    }
+
+    public String getMsj() {
+        return msj;
     }
 
 
